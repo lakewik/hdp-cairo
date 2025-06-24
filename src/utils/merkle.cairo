@@ -97,6 +97,7 @@ func compute_merkle_root_inner{
     let node = hash_pair(left=tree[left_idx], right=tree[right_idx]);
     assert tree[tree_range - index] = node;
 
+
     return compute_merkle_root_inner(tree_range=tree_range, index=index + 1);
 }
 
@@ -111,7 +112,7 @@ func compute_leaf_hashes{
 
     let leaf_hash = compute_leaf_hash_inner(leafs[index]);
     assert tree[tree_len - 1 - index] = leaf_hash;
-
+ //%{ print("leaf_hash iner", hex(ids.leaf_hash)) %}
     return compute_leaf_hashes(
         leafs=leafs, leafs_len=leafs_len, tree_len=tree_len, index=index + 1
     );
@@ -133,13 +134,23 @@ func compute_leaf_hash_inner{
     // hash first round
     let (first_hash) = keccak(first_round_input_start, 32);
 
+
+ //   %{ print("first_hash", hex(ids.first_hash)) %}
+
+    %{ print_u256("first_hash", hex(ids.first_hash)) %}
+    %{ print_u256("leaf", hex(ids.leaf)) %}
+
+
     let (second_round_input) = alloc();
     let second_round_input_start = second_round_input;
     keccak_add_uint256{
         range_check_ptr=range_check_ptr, bitwise_ptr=bitwise_ptr, inputs=second_round_input
     }(num=first_hash, bigend=0);
 
+
     let (leaf_hash) = keccak(second_round_input_start, 32);
+ %{ print_u256("leaf_hash", hex(ids.leaf_hash)) %}
+
     return (leaf_hash);
 }
 
@@ -151,6 +162,8 @@ func hash_pair{range_check_ptr, bitwise_ptr: BitwiseBuiltin*, keccak_ptr: Keccak
     alloc_locals;
     let (pair: Uint256*) = alloc();
     local is_left_smaller: felt;
+     %{ print_u256("hashpair left", hex(ids.left)) %}
+       %{ print_u256("hashpair right", hex(ids.right)) %}
 
     // ToDo: We have to figure out if the pair-wise order is something we want to do in a hint. The order could be messed with by a malicious prover.
     %{
@@ -178,7 +191,9 @@ func hash_pair{range_check_ptr, bitwise_ptr: BitwiseBuiltin*, keccak_ptr: Keccak
             #print(f"H({hex(right)}, {hex(left)})")
             ids.is_left_smaller = 0
     %}
-
+    //            print("LEFT greather than RIGHT")
+    // print("RIGHT greather than LEFT")
+    //let is_left_smaller = 0;
     if (is_left_smaller == 1) {
         assert pair[0] = left;
         assert pair[1] = right;
@@ -190,6 +205,8 @@ func hash_pair{range_check_ptr, bitwise_ptr: BitwiseBuiltin*, keccak_ptr: Keccak
     let (res) = keccak_uint256s{range_check_ptr=range_check_ptr, bitwise_ptr=bitwise_ptr}(
         n_elements=2, elements=pair
     );
+
+     %{ print_u256(" hash pair result ", hex(ids.res)) %}
 
     return (res);
 }

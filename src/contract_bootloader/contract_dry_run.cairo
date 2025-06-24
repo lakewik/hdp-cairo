@@ -20,7 +20,7 @@ from src.contract_bootloader.contract_bootloader import (
     compute_program_hash,
 )
 from starkware.cairo.common.memcpy import memcpy
-from src.utils.merkle import compute_merkle_root
+from src.utils.merkle import compute_merkle_root, hash_pair
 from src.utils.utils import felt_array_to_uint256s
 
 struct DryRunOutput {
@@ -80,6 +80,56 @@ func main{
     let (local module_hash) = compiled_class_hash(compiled_class=compiled_class);
 
     %{ print("module_hash", hex(ids.module_hash)) %}
+
+    // TEST
+
+   // ---- left leaf ---------------------------------------------------------
+    // low  = 0x270618e26e443fa27f5c637b6f2e4728
+    // high = 0xb636123bcf1cd18d064c00d2f20b1c5f
+    // let left  = Uint256(
+    //     low = 0x270618e26e443fa27f5c637b6f2e4728,
+    //     high = 0xb636123bcf1cd18d064c00d2f20b1c5f
+    // );
+
+    // let left  = Uint256(
+    //     low = 0x1afededd2787164f643d51d750541097,
+    //     high = 0x638db1014963f53641b2b129e19d952
+    // );
+
+    
+
+    // // ---- right leaf --------------------------------------------------------
+    // // low  = 0x36c3caa97da1146c2e370ad832cf8f51
+    // // high = 0x373de51f5ce4a83fcb2ea14433738cd0
+    // let right = Uint256(
+    //     low = 0x36c3caa97da1146c2e370ad832cf8f51,
+    //     high = 0x373de51f5ce4a83fcb2ea14433738cd0
+    // );
+
+    // // ---- call --------------------------------------------------------------
+    // let pair_hash = hash_pair(left=left, right=right);
+    // %{ print_u256("pair_hash", hex(ids.pair_hash)) %}
+
+
+    //  let left  = Uint256(
+    //     low = 0x270618e26e443fa27f5c637b6f2e4728,
+    //     high = 0xb636123bcf1cd18d064c00d2f20b1c5f
+    // );
+
+    
+
+    // // ---- right leaf --------------------------------------------------------
+    // // low  = 0x36c3caa97da1146c2e370ad832cf8f51
+    // // high = 0x373de51f5ce4a83fcb2ea14433738cd0
+    // let right = Uint256(
+    //     low = 0x36c3caa97da1146c2e370ad832cf8f51,
+    //     high = 0x373de51f5ce4a83fcb2ea14433738cd0
+    // );
+
+    //  let pair_hash = hash_pair(left=left, right=right);
+    // %{ print_u256("pair_hash", hex(ids.pair_hash)) %}
+
+    //TEST END
 
     %{
         vm_load_program(

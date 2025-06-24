@@ -24,6 +24,7 @@ pub fn hint_target_task_hash(
     hint_data: &HintProcessorData,
     _constants: &HashMap<String, Felt252>,
 ) -> Result<(), HintError> {
+   
     let task_hash = vm
         .get_continuous_range(
             get_relocatable_from_var_name(vars::ids::TASK_HASH, vm, &hint_data.ids_data, &hint_data.ap_tracking)?,
@@ -49,6 +50,7 @@ pub fn hint_is_left_smaller(
     hint_data: &HintProcessorData,
     _constants: &HashMap<String, Felt252>,
 ) -> Result<(), HintError> {
+    println!("meow7");
     let left = vm
         .get_continuous_range(
             get_relocatable_from_var_name(vars::ids::LEFT, vm, &hint_data.ids_data, &hint_data.ap_tracking)?,
@@ -70,11 +72,14 @@ pub fn hint_is_left_smaller(
     let left_flipped =
         BigUint::from_bytes_le(&left[0].to_bytes_be()) * FELT_TWO_POW_128.to_biguint() + BigUint::from_bytes_le(&left[1].to_bytes_be());
     let right_flipped =
-        BigUint::from_bytes_le(&right[1].to_bytes_be()) * FELT_TWO_POW_128.to_biguint() + BigUint::from_bytes_le(&right[1].to_bytes_be());
-
+        BigUint::from_bytes_le(&right[0].to_bytes_be()) * FELT_TWO_POW_128.to_biguint() + BigUint::from_bytes_le(&right[1].to_bytes_be());
+    println!("{}", left_flipped);
+    println!("{}",right_flipped);
     let insert = if left_flipped < right_flipped {
+        println!("one");
         Felt252::ONE
     } else {
+        println!("zero");
         Felt252::ZERO
     };
 

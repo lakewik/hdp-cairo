@@ -1,0 +1,5023 @@
+Program path: /home/kiki/Documents/HERODOTUS/hdp-cairo/target/release/build/dry_run-87bd6d55e021b4ca/out/cairo/compiled.json
+Available ID variables:
+- bitwise_ptr
+- mul_mod_ptr
+- ec_op_ptr
+- keccak_ptr
+- add_mod_ptr
+- pedersen_ptr
+- output_ptr
+- ecdsa_ptr
+- range_check96_ptr
+- poseidon_ptr
+- range_check_ptr
+Available ID variables:
+Available ID variables:
+- pedersen_ptr
+- add_mod_ptr
+- bitwise_ptr
+- output_ptr
+- mul_mod_ptr
+- public_inputs
+- range_check_ptr
+- poseidon_ptr
+- keccak_ptr
+- ec_op_ptr
+- range_check96_ptr
+- ecdsa_ptr
+Available ID variables:
+- ec_op_ptr
+- range_check_ptr
+- keccak_ptr
+- public_inputs
+- output_ptr
+- add_mod_ptr
+- mul_mod_ptr
+- ecdsa_ptr
+- poseidon_ptr
+- bitwise_ptr
+- range_check96_ptr
+- pedersen_ptr
+Available ID variables:
+Available ID variables:
+- output_ptr
+- keccak_ptr
+- range_check96_ptr
+- public_inputs_len
+- pedersen_ptr
+- bitwise_ptr
+- ecdsa_ptr
+- public_inputs
+- poseidon_ptr
+- private_inputs
+- range_check_ptr
+- add_mod_ptr
+- ec_op_ptr
+- mul_mod_ptr
+Available ID variables:
+- bitwise_ptr
+- public_inputs_len
+- output_ptr
+- private_inputs
+- pedersen_ptr
+- poseidon_ptr
+- add_mod_ptr
+- public_inputs
+- ec_op_ptr
+- range_check96_ptr
+- range_check_ptr
+- keccak_ptr
+- ecdsa_ptr
+- mul_mod_ptr
+Available ID variables:
+Available ID variables:
+- dst
+- src
+- len
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- dst
+- next_frame
+- src
+- frame
+- continue_copying
+- len
+- __temp51
+Available ID variables:
+- private_inputs
+- public_inputs
+- compiled_class
+- range_check_ptr
+- ec_op_ptr
+- bitwise_ptr
+- module_inputs_len
+- keccak_ptr
+- output_ptr
+- ecdsa_ptr
+- mul_mod_ptr
+- pedersen_ptr
+- public_inputs_len
+- module_inputs
+- private_inputs_len
+- poseidon_ptr
+- add_mod_ptr
+- range_check96_ptr
+Available ID variables:
+Available ID variables:
+Available ID variables:
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- poseidon_ptr
+- elements
+- elements_end
+- __temp232
+- n
+- state
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- poseidon_ptr
+- elements
+- elements_end
+- __temp232
+- n
+- state
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- poseidon_ptr
+- elements
+- elements_end
+- __temp232
+- n
+- state
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- poseidon_ptr
+- elements
+- elements_end
+- __temp232
+- n
+- state
+Available ID variables:
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- poseidon_ptr
+- elements
+- elements_end
+- __temp232
+- n
+- state
+Available ID variables:
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- poseidon_ptr
+- elements
+- elements_end
+- __temp232
+- n
+- state
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- poseidon_ptr
+- elements
+- elements_end
+- __temp232
+- n
+- state
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- poseidon_ptr
+- elements
+- elements_end
+- __temp232
+- n
+- state
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- poseidon_ptr
+- elements
+- elements_end
+- __temp232
+- n
+- state
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- poseidon_ptr
+- elements
+- elements_end
+- __temp232
+- n
+- state
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- poseidon_ptr
+- elements
+- elements_end
+- __temp232
+- n
+- state
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- poseidon_ptr
+- elements
+- elements_end
+- __temp232
+- n
+- state
+Available ID variables:
+- state
+- elements
+- n
+- elements_end
+- poseidon_ptr
+Available ID variables:
+- poseidon_ptr
+- elements
+- elements_end
+- __temp232
+- n
+- state
+module_hash: 0x6a69e16c844f5641e1f4e7d63afad5634536cd0d359d84081d2646085dcdfcc
+Available ID variables:
+- __temp414
+- pedersen_ptr
+- module_inputs
+- private_inputs
+- __temp413
+- ec_op_ptr
+- poseidon_ptr
+- range_check_ptr
+- add_mod_ptr
+- module_hash
+- __temp406
+- bitwise_ptr
+- __temp411
+- __temp407
+- module_inputs_len
+- public_inputs
+- private_inputs_len
+- builtin_costs
+- keccak_ptr
+- range_check96_ptr
+- ecdsa_ptr
+- __temp410
+- mul_mod_ptr
+- __temp409
+- compiled_class
+- __temp403
+- __temp408
+- public_inputs_len
+- __temp404
+- output_ptr
+- __temp405
+- __temp402
+- __temp412
+Available ID variables:
+- default_value
+Available ID variables:
+- default_value
+Available ID variables:
+- ec_op_ptr
+- range_check_ptr
+- __temp406
+- public_inputs_len
+- ecdsa_ptr
+- __temp414
+- public_inputs
+- output_ptr
+- poseidon_ptr
+- evm_memorizer
+- builtin_costs
+- __temp413
+- compiled_class
+- __temp404
+- range_check96_ptr
+- keccak_ptr
+- module_inputs
+- __temp402
+- add_mod_ptr
+- starknet_memorizer
+- __temp412
+- pedersen_ptr
+- __temp411
+- module_inputs_len
+- bitwise_ptr
+- module_hash
+- __temp405
+- __temp407
+- __temp403
+- private_inputs_len
+- __temp409
+- mul_mod_ptr
+- __temp410
+- private_inputs
+- __temp408
+Available ID variables:
+- __temp405
+- public_inputs
+- compiled_class
+- bitwise_ptr
+- module_hash
+- poseidon_ptr
+- module_inputs_len
+- pedersen_ptr
+- __temp409
+- __temp410
+- __temp411
+- add_mod_ptr
+- __temp404
+- __temp412
+- evm_memorizer
+- range_check96_ptr
+- builtin_costs
+- starknet_memorizer
+- keccak_ptr
+- mul_mod_ptr
+- __temp413
+- pow2_array
+- public_inputs_len
+- ec_op_ptr
+- __temp408
+- __temp403
+- __temp414
+- module_inputs
+- private_inputs_len
+- __temp402
+- __temp406
+- __temp407
+- output_ptr
+- ecdsa_ptr
+- range_check_ptr
+- private_inputs
+Available ID variables:
+- bitwise_ptr
+- __temp406
+- public_inputs_len
+- __temp402
+- __temp413
+- __temp412
+- private_inputs
+- __temp414
+- __temp405
+- poseidon_ptr
+- public_inputs
+- module_hash
+- mul_mod_ptr
+- __temp403
+- pow2_array
+- ec_op_ptr
+- output_ptr
+- __temp404
+- compiled_class
+- __temp411
+- __temp408
+- pedersen_ptr
+- starknet_memorizer
+- evm_memorizer
+- ecdsa_ptr
+- __temp410
+- __temp409
+- add_mod_ptr
+- module_inputs
+- keccak_ptr
+- builtin_costs
+- __temp407
+- range_check96_ptr
+- range_check_ptr
+- module_inputs_len
+- private_inputs_len
+Available ID variables:
+- compiled_class
+- range_check96_ptr
+- __temp413
+- __temp411
+- __temp407
+- ec_op_ptr
+- __temp410
+- starknet_memorizer
+- pow2_array
+- pedersen_ptr
+- __temp406
+- __temp409
+- private_inputs_len
+- evm_memorizer
+- __temp412
+- module_inputs
+- __temp408
+- keccak_ptr
+- public_inputs
+- __temp402
+- module_hash
+- __temp414
+- range_check_ptr
+- __temp403
+- ecdsa_ptr
+- __temp404
+- add_mod_ptr
+- bitwise_ptr
+- public_inputs_len
+- mul_mod_ptr
+- output_ptr
+- __temp405
+- private_inputs
+- builtin_costs
+- poseidon_ptr
+- module_inputs_len
+Available ID variables:
+- public_inputs_len
+- __temp407
+- output_ptr
+- __temp408
+- pedersen_ptr
+- private_inputs_len
+- public_inputs
+- add_mod_ptr
+- compiled_class
+- range_check96_ptr
+- __temp410
+- private_inputs
+- __temp414
+- __temp402
+- module_inputs
+- __temp403
+- ec_op_ptr
+- __temp412
+- keccak_ptr
+- evm_memorizer
+- __temp406
+- __temp405
+- __temp409
+- range_check_ptr
+- pow2_array
+- __temp404
+- bitwise_ptr
+- module_inputs_len
+- poseidon_ptr
+- __temp413
+- mul_mod_ptr
+- builtin_costs
+- calldata
+- starknet_memorizer
+- __temp411
+- ecdsa_ptr
+- module_hash
+Available ID variables:
+- pow2_array
+- public_inputs_len
+- add_mod_ptr
+- __temp406
+- __temp413
+- __temp402
+- public_inputs
+- module_hash
+- __temp410
+- mul_mod_ptr
+- __temp414
+- ec_op_ptr
+- ecdsa_ptr
+- range_check_ptr
+- module_inputs
+- __temp403
+- builtin_costs
+- pedersen_ptr
+- __temp405
+- poseidon_ptr
+- keccak_ptr
+- evm_memorizer
+- __temp411
+- bitwise_ptr
+- output_ptr
+- __temp412
+- private_inputs
+- __temp407
+- __temp415
+- __temp404
+- starknet_memorizer
+- compiled_class
+- calldata
+- __temp408
+- private_inputs_len
+- module_inputs_len
+- range_check96_ptr
+- __temp409
+Available ID variables:
+- __temp416
+- __temp410
+- range_check96_ptr
+- output_ptr
+- __temp407
+- __temp415
+- __temp408
+- __temp402
+- __temp405
+- __temp403
+- __temp404
+- pedersen_ptr
+- private_inputs_len
+- public_inputs
+- __temp413
+- __temp409
+- keccak_ptr
+- module_hash
+- __temp412
+- compiled_class
+- public_inputs_len
+- __temp411
+- starknet_memorizer
+- __temp406
+- ecdsa_ptr
+- builtin_costs
+- bitwise_ptr
+- evm_memorizer
+- module_inputs
+- calldata
+- poseidon_ptr
+- pow2_array
+- range_check_ptr
+- __temp414
+- private_inputs
+- module_inputs_len
+- add_mod_ptr
+- mul_mod_ptr
+- ec_op_ptr
+Available ID variables:
+- add_mod_ptr
+- builtin_costs
+- public_inputs
+- module_inputs_len
+- range_check_ptr
+- public_inputs_len
+- __temp413
+- bitwise_ptr
+- ec_op_ptr
+- __temp410
+- __temp411
+- calldata
+- output_ptr
+- __temp414
+- __temp417
+- module_hash
+- evm_memorizer
+- starknet_memorizer
+- pow2_array
+- __temp403
+- __temp402
+- __temp404
+- ecdsa_ptr
+- __temp407
+- __temp412
+- __temp405
+- __temp415
+- range_check96_ptr
+- __temp406
+- pedersen_ptr
+- private_inputs_len
+- private_inputs
+- poseidon_ptr
+- __temp409
+- mul_mod_ptr
+- __temp416
+- keccak_ptr
+- __temp408
+- compiled_class
+- module_inputs
+Available ID variables:
+- dst
+- src
+- len
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- dst
+- next_frame
+- src
+- frame
+- continue_copying
+- len
+- __temp51
+Available ID variables:
+Available ID variables:
+Available ID variables:
+Available ID variables:
+Available ID variables:
+Available ID variables:
+- segment_arena
+Available ID variables:
+Available ID variables:
+- starknet_memorizer
+- starknet_key_hasher_ptr
+- pedersen_ptr
+- calldata
+- evm_key_hasher_ptr
+- evm_memorizer
+- starknet_decoder_ptr
+- sha256_ptr
+- poseidon_ptr
+- pow2_array
+- keccak_ptr
+- mul_mod_ptr
+- segment_arena_ptr
+- __fp__
+- ecdsa_ptr
+- add_mod_ptr
+- range_check_ptr
+- ec_op_ptr
+- calldata_size
+- range_check96_ptr
+- evm_decoder_ptr
+- bitwise_ptr
+- dry_run
+- compiled_class
+Available ID variables:
+- index
+- elm_size
+- array_ptr
+- key
+- n_elms
+- range_check_ptr
+Available ID variables:
+- a
+- range_check_ptr
+Available ID variables:
+- a
+- range_check_ptr
+Available ID variables:
+- b
+- a
+- range_check_ptr
+Available ID variables:
+- __temp9
+- arc_long
+- arc_prod
+- __temp10
+- __temp7
+- __temp6
+- a
+- __temp8
+- arc_sum
+- __temp5
+- arc_short
+- b
+- range_check_ptr
+Available ID variables:
+- arc_long
+- __temp8
+- range_check_ptr
+- b
+- __temp7
+- __temp9
+- a
+- arc_prod
+- __temp10
+- __temp6
+- arc_sum
+- arc_short
+- __temp5
+Available ID variables:
+- arc_sum
+- range_check_ptr
+- arc_prod
+- b
+- arc_long
+- arc_short
+- __temp6
+- __temp9
+- __temp8
+- __temp5
+- a
+- __temp7
+- __temp10
+Available ID variables:
+- evm_memorizer
+- starknet_memorizer
+- mul_mod_ptr
+- poseidon_ptr
+- keccak_ptr
+- pedersen_ptr
+- starknet_decoder_ptr
+- bitwise_ptr
+- builtin_params
+- range_check96_ptr
+- ecdsa_ptr
+- starknet_key_hasher_ptr
+- add_mod_ptr
+- __temp387
+- entry_point_offset
+- dry_run
+- ec_op_ptr
+- builtin_ptrs
+- evm_decoder_ptr
+- contract_entry_point
+- evm_key_hasher_ptr
+- __temp386
+- pow2_array
+- compiled_class
+- range_check_ptr
+- execution_context
+- compiled_class_entry_point
+Available ID variables:
+- range_check96_ptr
+- compiled_class
+- pow2_array
+- entry_point_offset
+- ecdsa_ptr
+- contract_entry_point
+- __temp387
+- evm_memorizer
+- bitwise_ptr
+- builtin_params
+- compiled_class_entry_point
+- add_mod_ptr
+- poseidon_ptr
+- evm_key_hasher_ptr
+- starknet_memorizer
+- starknet_key_hasher_ptr
+- keccak_ptr
+- __temp386
+- mul_mod_ptr
+- builtin_ptrs
+- execution_context
+- range_check_ptr
+- evm_decoder_ptr
+- dry_run
+- starknet_decoder_ptr
+- ec_op_ptr
+- pedersen_ptr
+Available ID variables:
+- compiled_class_entry_point
+- starknet_decoder_ptr
+- __temp387
+- range_check96_ptr
+- ecdsa_ptr
+- __temp386
+- starknet_key_hasher_ptr
+- compiled_class
+- evm_memorizer
+- bitwise_ptr
+- evm_decoder_ptr
+- pedersen_ptr
+- mul_mod_ptr
+- pow2_array
+- execution_context
+- contract_entry_point
+- add_mod_ptr
+- poseidon_ptr
+- range_check_ptr
+- keccak_ptr
+- builtin_params
+- entry_point_offset
+- dry_run
+- builtin_ptrs
+- evm_key_hasher_ptr
+- ec_op_ptr
+- starknet_memorizer
+Available ID variables:
+- entry_point_offset
+- dry_run
+- contract_entry_point
+- ecdsa_ptr
+- pow2_array
+- pedersen_ptr
+- execution_context
+- starknet_decoder_ptr
+- ec_op_ptr
+- builtin_params
+- evm_memorizer
+- range_check96_ptr
+- add_mod_ptr
+- syscall_ptr
+- builtin_ptrs
+- evm_key_hasher_ptr
+- mul_mod_ptr
+- keccak_ptr
+- compiled_class_entry_point
+- __temp386
+- evm_decoder_ptr
+- range_check_ptr
+- starknet_key_hasher_ptr
+- starknet_memorizer
+- bitwise_ptr
+- compiled_class
+- __temp387
+- poseidon_ptr
+Available ID variables:
+- all_encodings
+- n_all_builtins
+- inner_func_memory
+- all_ptrs
+- selected_encodings
+- n_selected_builtins
+- selected_ptrs
+- total_func_memory
+- frame
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- inner_func_memory
+- all_encodings
+- inner_ret
+- n_selected_builtins
+- selected_ptrs
+- n_all_builtins
+- __temp283
+- all_ptrs
+- selected_encodings
+- __temp284
+- frame
+- total_func_memory
+Available ID variables:
+- __temp387
+- ec_op_ptr
+- current_ap
+- keccak_ptr
+- ecdsa_ptr
+- bitwise_ptr
+- entry_point_offset
+- range_check96_ptr
+- evm_memorizer
+- __temp386
+- entry_point_builtin_list
+- starknet_memorizer
+- args
+- range_check_ptr
+- pedersen_ptr
+- pow2_array
+- starknet_key_hasher_ptr
+- starknet_decoder_ptr
+- calldata_start
+- n_builtins
+- builtin_params
+- contract_entry_point
+- syscall_ptr
+- mul_mod_ptr
+- __temp388
+- poseidon_ptr
+- execution_context
+- calldata_end
+- entry_point_n_builtins
+- evm_key_hasher_ptr
+- evm_decoder_ptr
+- add_mod_ptr
+- compiled_class_entry_point
+- compiled_class
+- dry_run
+- builtin_ptrs
+[DEBUG]	                               	(raw: 1997209042069643135709344952807065910992472029923670688473712229447419591075) 
+[DEBUG]	                              	(raw: 3                              )
+[DEBUG]	Order fullfilment verification 	(raw: 140370423879183604941767611923978183775265008103655429337842114043206135328)
+[DEBUG]	failure for order a6a96f6ef25dc	(raw: 180890712219476271346647268308592706622821450362861242448625967258752345187)
+[DEBUG]	23650e3e6c2247d2d8ef0926a3473c3	(raw: 88695803741185697844639069987891697886527100092545462940669232817619821363)
+[DEBUG]	1636dc2581e3a9a71174
+          	(raw: 71923007807067386661061936774918323091236957139978)
+[DEBUG]	                              	(raw: 21                             )
+
+Available ID variables:
+- range_check96_ptr
+- starknet_memorizer
+- builtin_params
+- current_ap
+- pow2_array
+- entry_point_offset
+- dry_run
+- ec_op_ptr
+- calldata_start
+- entry_point_builtin_list
+- args
+- __temp387
+- evm_decoder_ptr
+- compiled_class
+- execution_context
+- contract_entry_point
+- bitwise_ptr
+- ecdsa_ptr
+- entry_point_n_builtins
+- mul_mod_ptr
+- range_check_ptr
+- syscall_ptr
+- __temp386
+- starknet_decoder_ptr
+- __temp388
+- calldata_end
+- evm_key_hasher_ptr
+- starknet_key_hasher_ptr
+- evm_memorizer
+- compiled_class_entry_point
+- add_mod_ptr
+- keccak_ptr
+- builtin_ptrs
+- poseidon_ptr
+- pedersen_ptr
+- n_builtins
+Available ID variables:
+- return_builtin_ptrs
+- n_selected_builtins
+- builtin_ptrs
+- builtin_params
+- selected_encodings
+- selected_ptrs
+- n_builtins
+- range_check_ptr
+Available ID variables:
+- all_ptrs
+- n_builtins
+- selected_ptrs
+- n_selected_builtins
+- all_encodings
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- all_ptrs
+- all_encodings
+- selected_ptrs
+- select_builtin
+- n_builtins
+- selected_encodings
+Available ID variables:
+- n_selected_builtins
+- selected_encodings_end
+- all_ptrs
+- n_builtins
+- selected_ptrs
+- selected_encodings
+- all_encodings
+Available ID variables:
+Available ID variables:
+- dst
+- src
+- len
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- dst
+- next_frame
+- src
+- frame
+- continue_copying
+- len
+- __temp51
+Available ID variables:
+Available ID variables:
+- low
+- range_check_ptr
+- value
+- high
+Available ID variables:
+- a
+- range_check_ptr
+Available ID variables:
+- num
+- range_check_ptr
+- bitwise_ptr
+- high
+- bigend
+- low
+- inputs
+Available ID variables:
+- low
+- range_check_ptr
+- value
+- high
+Available ID variables:
+- a
+- range_check_ptr
+Available ID variables:
+- num
+- range_check_ptr
+- bitwise_ptr
+- high
+- bigend
+- low
+- inputs
+Available ID variables:
+- low
+- range_check_ptr
+- value
+- high
+Available ID variables:
+- a
+- range_check_ptr
+Available ID variables:
+- num
+- range_check_ptr
+- bitwise_ptr
+- high
+- bigend
+- low
+- inputs
+Available ID variables:
+- low
+- range_check_ptr
+- value
+- high
+Available ID variables:
+- a
+- range_check_ptr
+Available ID variables:
+- num
+- range_check_ptr
+- bitwise_ptr
+- high
+- bigend
+- low
+- inputs
+Available ID variables:
+- low
+- range_check_ptr
+- value
+- high
+Available ID variables:
+- a
+- range_check_ptr
+Available ID variables:
+- num
+- range_check_ptr
+- bitwise_ptr
+- high
+- bigend
+- low
+- inputs
+Available ID variables:
+- low
+- range_check_ptr
+- value
+- high
+Available ID variables:
+- a
+- range_check_ptr
+Available ID variables:
+- num
+- range_check_ptr
+- bitwise_ptr
+- high
+- bigend
+- low
+- inputs
+Available ID variables:
+- low
+- range_check_ptr
+- value
+- high
+Available ID variables:
+- a
+- range_check_ptr
+Available ID variables:
+- num
+- range_check_ptr
+- bitwise_ptr
+- high
+- bigend
+- low
+- inputs
+Available ID variables:
+- state
+- n_bytes
+- keccak_ptr
+- bitwise_ptr
+- inputs
+- range_check_ptr
+Available ID variables:
+- __temp75
+- __temp70
+- bitwise_ptr
+- __temp76
+- __temp72
+- high3
+- state
+- keccak_ptr
+- inputs
+- __temp71
+- __temp77
+- __temp78
+- __temp73
+- __temp74
+- low3
+- range_check_ptr
+Available ID variables:
+- __temp96
+- low3
+- __temp88
+- __temp89
+- __temp94
+- __temp83
+- __temp70
+- element
+- __temp85
+- inputs
+- __temp104
+- high3
+- __temp74
+- __temp99
+- __temp86
+- __temp92
+- __temp71
+- __temp100
+- __temp84
+- bitwise_ptr
+- __temp76
+- __temp101
+- __temp90
+- __temp91
+- __temp97
+- __temp82
+- __temp72
+- __temp98
+- __temp103
+- __temp93
+- __temp79
+- state
+- range_check_ptr
+- __temp77
+- __temp80
+- high6
+- __temp81
+- __temp73
+- keccak_ptr
+- __temp75
+- __temp87
+- __temp102
+- low6
+- __temp78
+- __temp95
+Available ID variables:
+- __temp125
+- __temp86
+- __temp100
+- range_check_ptr
+- __temp106
+- __temp72
+- high9
+- keccak_ptr
+- high3
+- __temp98
+- bitwise_ptr
+- __temp99
+- __temp120
+- __temp74
+- __temp126
+- __temp117
+- __temp82
+- __temp97
+- element
+- __temp83
+- __temp93
+- __temp75
+- __temp104
+- __temp124
+- __temp105
+- __temp96
+- __temp78
+- __temp79
+- __temp112
+- __temp128
+- low6
+- __temp92
+- __temp116
+- __temp113
+- __temp123
+- __temp107
+- __temp103
+- __temp76
+- __temp88
+- __temp80
+- __temp115
+- __temp121
+- __temp130
+- __temp114
+- __temp85
+- __temp77
+- __temp95
+- low3
+- __temp118
+- __temp127
+- __temp110
+- __temp73
+- __temp81
+- __temp101
+- __temp122
+- inputs
+- __temp70
+- __temp108
+- high6
+- __temp87
+- __temp89
+- low9
+- __temp91
+- __temp111
+- __temp119
+- __temp84
+- __temp129
+- __temp109
+- __temp90
+- state
+- __temp94
+- __temp102
+- __temp71
+Available ID variables:
+- __temp109
+- __temp151
+- __temp120
+- __temp116
+- __temp134
+- __temp93
+- __temp142
+- __temp104
+- __temp124
+- __temp126
+- __temp81
+- __temp140
+- __temp88
+- element
+- __temp118
+- __temp128
+- __temp105
+- __temp139
+- __temp145
+- __temp91
+- __temp114
+- __temp75
+- __temp80
+- __temp155
+- __temp147
+- high3
+- __temp122
+- __temp72
+- __temp102
+- __temp71
+- __temp106
+- __temp87
+- __temp73
+- __temp90
+- __temp153
+- __temp70
+- __temp137
+- __temp85
+- __temp129
+- inputs
+- __temp78
+- __temp79
+- __temp97
+- __temp154
+- high9
+- __temp107
+- __temp135
+- __temp132
+- __temp150
+- __temp121
+- keccak_ptr
+- __temp108
+- __temp96
+- __temp148
+- __temp94
+- __temp131
+- __temp111
+- __temp130
+- __temp84
+- __temp127
+- __temp117
+- state
+- __temp77
+- __temp98
+- __temp95
+- __temp113
+- __temp103
+- __temp100
+- low9
+- __temp110
+- __temp133
+- __temp119
+- __temp138
+- high6
+- low12
+- __temp144
+- __temp89
+- bitwise_ptr
+- __temp99
+- __temp92
+- range_check_ptr
+- __temp146
+- __temp152
+- __temp156
+- __temp101
+- __temp125
+- __temp82
+- low6
+- __temp143
+- __temp112
+- __temp83
+- low3
+- __temp76
+- high12
+- __temp136
+- __temp74
+- __temp123
+- __temp115
+- __temp86
+- __temp141
+- __temp149
+Available ID variables:
+- __temp98
+- high9
+- __temp103
+- __temp130
+- __temp73
+- __temp161
+- __temp77
+- __temp87
+- __temp158
+- __temp75
+- __temp156
+- __temp136
+- __temp102
+- __temp91
+- __temp124
+- __temp139
+- high6
+- __temp120
+- __temp167
+- __temp82
+- __temp113
+- __temp179
+- __temp86
+- __temp138
+- __temp149
+- low12
+- __temp97
+- __temp117
+- __temp76
+- __temp95
+- __temp107
+- __temp152
+- __temp123
+- __temp78
+- __temp74
+- __temp143
+- __temp122
+- __temp142
+- __temp94
+- __temp135
+- __temp175
+- __temp148
+- __temp111
+- __temp110
+- __temp162
+- high15
+- bitwise_ptr
+- high12
+- __temp108
+- low9
+- element
+- __temp83
+- __temp169
+- __temp81
+- __temp131
+- __temp112
+- __temp140
+- range_check_ptr
+- __temp105
+- __temp80
+- __temp118
+- __temp127
+- __temp164
+- __temp159
+- __temp88
+- __temp165
+- state
+- __temp181
+- __temp129
+- __temp176
+- __temp90
+- __temp178
+- inputs
+- __temp71
+- __temp85
+- __temp147
+- __temp128
+- low6
+- __temp151
+- low3
+- __temp137
+- __temp160
+- __temp132
+- __temp172
+- high3
+- __temp106
+- __temp121
+- __temp104
+- __temp79
+- __temp177
+- __temp163
+- __temp180
+- __temp84
+- __temp145
+- __temp155
+- __temp89
+- __temp72
+- __temp101
+- __temp141
+- __temp114
+- __temp116
+- __temp70
+- low15
+- __temp92
+- __temp154
+- __temp168
+- __temp133
+- __temp171
+- __temp99
+- __temp170
+- __temp157
+- __temp166
+- __temp93
+- __temp144
+- __temp146
+- __temp174
+- __temp134
+- keccak_ptr
+- __temp109
+- __temp125
+- __temp96
+- __temp115
+- __temp150
+- __temp182
+- __temp153
+- __temp126
+- __temp100
+- __temp173
+- __temp119
+Available ID variables:
+- state
+- n_bytes
+- keccak_ptr
+- bitwise_ptr
+- inputs
+- range_check_ptr
+Available ID variables:
+Available ID variables:
+- range_check_ptr
+- state
+- dst
+- keccak_ptr
+- n_bytes_left
+- n_words_to_copy
+- inputs
+- n_bytes
+- bitwise_ptr
+- padded_inputs
+Available ID variables:
+- dst
+- src
+- len
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- dst
+- next_frame
+- src
+- frame
+- continue_copying
+- len
+- __temp51
+Available ID variables:
+- dst
+- value
+- n
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- value
+- dst
+- continue_loop
+Available ID variables:
+- __temp75
+- __temp70
+- bitwise_ptr
+- __temp76
+- __temp72
+- high3
+- state
+- keccak_ptr
+- inputs
+- __temp71
+- __temp77
+- __temp78
+- __temp73
+- __temp74
+- low3
+- range_check_ptr
+Available ID variables:
+- __temp96
+- low3
+- __temp88
+- __temp89
+- __temp94
+- __temp83
+- __temp70
+- element
+- __temp85
+- inputs
+- __temp104
+- high3
+- __temp74
+- __temp99
+- __temp86
+- __temp92
+- __temp71
+- __temp100
+- __temp84
+- bitwise_ptr
+- __temp76
+- __temp101
+- __temp90
+- __temp91
+- __temp97
+- __temp82
+- __temp72
+- __temp98
+- __temp103
+- __temp93
+- __temp79
+- state
+- range_check_ptr
+- __temp77
+- __temp80
+- high6
+- __temp81
+- __temp73
+- keccak_ptr
+- __temp75
+- __temp87
+- __temp102
+- low6
+- __temp78
+- __temp95
+Available ID variables:
+- __temp125
+- __temp86
+- __temp100
+- range_check_ptr
+- __temp106
+- __temp72
+- high9
+- keccak_ptr
+- high3
+- __temp98
+- bitwise_ptr
+- __temp99
+- __temp120
+- __temp74
+- __temp126
+- __temp117
+- __temp82
+- __temp97
+- element
+- __temp83
+- __temp93
+- __temp75
+- __temp104
+- __temp124
+- __temp105
+- __temp96
+- __temp78
+- __temp79
+- __temp112
+- __temp128
+- low6
+- __temp92
+- __temp116
+- __temp113
+- __temp123
+- __temp107
+- __temp103
+- __temp76
+- __temp88
+- __temp80
+- __temp115
+- __temp121
+- __temp130
+- __temp114
+- __temp85
+- __temp77
+- __temp95
+- low3
+- __temp118
+- __temp127
+- __temp110
+- __temp73
+- __temp81
+- __temp101
+- __temp122
+- inputs
+- __temp70
+- __temp108
+- high6
+- __temp87
+- __temp89
+- low9
+- __temp91
+- __temp111
+- __temp119
+- __temp84
+- __temp129
+- __temp109
+- __temp90
+- state
+- __temp94
+- __temp102
+- __temp71
+Available ID variables:
+- __temp109
+- __temp151
+- __temp120
+- __temp116
+- __temp134
+- __temp93
+- __temp142
+- __temp104
+- __temp124
+- __temp126
+- __temp81
+- __temp140
+- __temp88
+- element
+- __temp118
+- __temp128
+- __temp105
+- __temp139
+- __temp145
+- __temp91
+- __temp114
+- __temp75
+- __temp80
+- __temp155
+- __temp147
+- high3
+- __temp122
+- __temp72
+- __temp102
+- __temp71
+- __temp106
+- __temp87
+- __temp73
+- __temp90
+- __temp153
+- __temp70
+- __temp137
+- __temp85
+- __temp129
+- inputs
+- __temp78
+- __temp79
+- __temp97
+- __temp154
+- high9
+- __temp107
+- __temp135
+- __temp132
+- __temp150
+- __temp121
+- keccak_ptr
+- __temp108
+- __temp96
+- __temp148
+- __temp94
+- __temp131
+- __temp111
+- __temp130
+- __temp84
+- __temp127
+- __temp117
+- state
+- __temp77
+- __temp98
+- __temp95
+- __temp113
+- __temp103
+- __temp100
+- low9
+- __temp110
+- __temp133
+- __temp119
+- __temp138
+- high6
+- low12
+- __temp144
+- __temp89
+- bitwise_ptr
+- __temp99
+- __temp92
+- range_check_ptr
+- __temp146
+- __temp152
+- __temp156
+- __temp101
+- __temp125
+- __temp82
+- low6
+- __temp143
+- __temp112
+- __temp83
+- low3
+- __temp76
+- high12
+- __temp136
+- __temp74
+- __temp123
+- __temp115
+- __temp86
+- __temp141
+- __temp149
+Available ID variables:
+- __temp98
+- high9
+- __temp103
+- __temp130
+- __temp73
+- __temp161
+- __temp77
+- __temp87
+- __temp158
+- __temp75
+- __temp156
+- __temp136
+- __temp102
+- __temp91
+- __temp124
+- __temp139
+- high6
+- __temp120
+- __temp167
+- __temp82
+- __temp113
+- __temp179
+- __temp86
+- __temp138
+- __temp149
+- low12
+- __temp97
+- __temp117
+- __temp76
+- __temp95
+- __temp107
+- __temp152
+- __temp123
+- __temp78
+- __temp74
+- __temp143
+- __temp122
+- __temp142
+- __temp94
+- __temp135
+- __temp175
+- __temp148
+- __temp111
+- __temp110
+- __temp162
+- high15
+- bitwise_ptr
+- high12
+- __temp108
+- low9
+- element
+- __temp83
+- __temp169
+- __temp81
+- __temp131
+- __temp112
+- __temp140
+- range_check_ptr
+- __temp105
+- __temp80
+- __temp118
+- __temp127
+- __temp164
+- __temp159
+- __temp88
+- __temp165
+- state
+- __temp181
+- __temp129
+- __temp176
+- __temp90
+- __temp178
+- inputs
+- __temp71
+- __temp85
+- __temp147
+- __temp128
+- low6
+- __temp151
+- low3
+- __temp137
+- __temp160
+- __temp132
+- __temp172
+- high3
+- __temp106
+- __temp121
+- __temp104
+- __temp79
+- __temp177
+- __temp163
+- __temp180
+- __temp84
+- __temp145
+- __temp155
+- __temp89
+- __temp72
+- __temp101
+- __temp141
+- __temp114
+- __temp116
+- __temp70
+- low15
+- __temp92
+- __temp154
+- __temp168
+- __temp133
+- __temp171
+- __temp99
+- __temp170
+- __temp157
+- __temp166
+- __temp93
+- __temp144
+- __temp146
+- __temp174
+- __temp134
+- keccak_ptr
+- __temp109
+- __temp125
+- __temp96
+- __temp115
+- __temp150
+- __temp182
+- __temp153
+- __temp126
+- __temp100
+- __temp173
+- __temp119
+Available ID variables:
+- output0_high
+- range_check_ptr
+- bitwise_ptr
+- output
+- output0
+- output0_low
+- output1
+Available ID variables:
+- __temp56
+- output0_low
+- range_check_ptr
+- __temp52
+- __temp53
+- output1_low
+- output1_mid
+- __temp54
+- output0_high
+- output
+- output1
+- __temp55
+- output0
+- output1_high
+- bitwise_ptr
+Available ID variables:
+retdata_size: 0x1
+Available ID variables:
+- low
+- range_check_ptr
+- value
+- high
+Available ID variables:
+- a
+- range_check_ptr
+Available ID variables:
+Available ID variables:
+- num
+- range_check_ptr
+- bitwise_ptr
+- high
+- bigend
+- low
+- inputs
+Available ID variables:
+- state
+- n_bytes
+- keccak_ptr
+- bitwise_ptr
+- inputs
+- range_check_ptr
+Available ID variables:
+Available ID variables:
+- range_check_ptr
+- state
+- dst
+- keccak_ptr
+- n_bytes_left
+- n_words_to_copy
+- inputs
+- n_bytes
+- bitwise_ptr
+- padded_inputs
+Available ID variables:
+- dst
+- src
+- len
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- len
+- next_frame
+- src
+- frame
+- dst
+- __temp51
+- continue_copying
+Available ID variables:
+- dst
+- next_frame
+- src
+- frame
+- continue_copying
+- len
+- __temp51
+Available ID variables:
+- dst
+- value
+- n
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- continue_loop
+- dst
+- value
+Available ID variables:
+- next_frame
+- frame
+- n
+- value
+- dst
+- continue_loop
+Available ID variables:
+- __temp75
+- __temp70
+- bitwise_ptr
+- __temp76
+- __temp72
+- high3
+- state
+- keccak_ptr
+- inputs
+- __temp71
+- __temp77
+- __temp78
+- __temp73
+- __temp74
+- low3
+- range_check_ptr
+Available ID variables:
+- __temp96
+- low3
+- __temp88
+- __temp89
+- __temp94
+- __temp83
+- __temp70
+- element
+- __temp85
+- inputs
+- __temp104
+- high3
+- __temp74
+- __temp99
+- __temp86
+- __temp92
+- __temp71
+- __temp100
+- __temp84
+- bitwise_ptr
+- __temp76
+- __temp101
+- __temp90
+- __temp91
+- __temp97
+- __temp82
+- __temp72
+- __temp98
+- __temp103
+- __temp93
+- __temp79
+- state
+- range_check_ptr
+- __temp77
+- __temp80
+- high6
+- __temp81
+- __temp73
+- keccak_ptr
+- __temp75
+- __temp87
+- __temp102
+- low6
+- __temp78
+- __temp95
+Available ID variables:
+- __temp125
+- __temp86
+- __temp100
+- range_check_ptr
+- __temp106
+- __temp72
+- high9
+- keccak_ptr
+- high3
+- __temp98
+- bitwise_ptr
+- __temp99
+- __temp120
+- __temp74
+- __temp126
+- __temp117
+- __temp82
+- __temp97
+- element
+- __temp83
+- __temp93
+- __temp75
+- __temp104
+- __temp124
+- __temp105
+- __temp96
+- __temp78
+- __temp79
+- __temp112
+- __temp128
+- low6
+- __temp92
+- __temp116
+- __temp113
+- __temp123
+- __temp107
+- __temp103
+- __temp76
+- __temp88
+- __temp80
+- __temp115
+- __temp121
+- __temp130
+- __temp114
+- __temp85
+- __temp77
+- __temp95
+- low3
+- __temp118
+- __temp127
+- __temp110
+- __temp73
+- __temp81
+- __temp101
+- __temp122
+- inputs
+- __temp70
+- __temp108
+- high6
+- __temp87
+- __temp89
+- low9
+- __temp91
+- __temp111
+- __temp119
+- __temp84
+- __temp129
+- __temp109
+- __temp90
+- state
+- __temp94
+- __temp102
+- __temp71
+Available ID variables:
+- __temp109
+- __temp151
+- __temp120
+- __temp116
+- __temp134
+- __temp93
+- __temp142
+- __temp104
+- __temp124
+- __temp126
+- __temp81
+- __temp140
+- __temp88
+- element
+- __temp118
+- __temp128
+- __temp105
+- __temp139
+- __temp145
+- __temp91
+- __temp114
+- __temp75
+- __temp80
+- __temp155
+- __temp147
+- high3
+- __temp122
+- __temp72
+- __temp102
+- __temp71
+- __temp106
+- __temp87
+- __temp73
+- __temp90
+- __temp153
+- __temp70
+- __temp137
+- __temp85
+- __temp129
+- inputs
+- __temp78
+- __temp79
+- __temp97
+- __temp154
+- high9
+- __temp107
+- __temp135
+- __temp132
+- __temp150
+- __temp121
+- keccak_ptr
+- __temp108
+- __temp96
+- __temp148
+- __temp94
+- __temp131
+- __temp111
+- __temp130
+- __temp84
+- __temp127
+- __temp117
+- state
+- __temp77
+- __temp98
+- __temp95
+- __temp113
+- __temp103
+- __temp100
+- low9
+- __temp110
+- __temp133
+- __temp119
+- __temp138
+- high6
+- low12
+- __temp144
+- __temp89
+- bitwise_ptr
+- __temp99
+- __temp92
+- range_check_ptr
+- __temp146
+- __temp152
+- __temp156
+- __temp101
+- __temp125
+- __temp82
+- low6
+- __temp143
+- __temp112
+- __temp83
+- low3
+- __temp76
+- high12
+- __temp136
+- __temp74
+- __temp123
+- __temp115
+- __temp86
+- __temp141
+- __temp149
+Available ID variables:
+- __temp98
+- high9
+- __temp103
+- __temp130
+- __temp73
+- __temp161
+- __temp77
+- __temp87
+- __temp158
+- __temp75
+- __temp156
+- __temp136
+- __temp102
+- __temp91
+- __temp124
+- __temp139
+- high6
+- __temp120
+- __temp167
+- __temp82
+- __temp113
+- __temp179
+- __temp86
+- __temp138
+- __temp149
+- low12
+- __temp97
+- __temp117
+- __temp76
+- __temp95
+- __temp107
+- __temp152
+- __temp123
+- __temp78
+- __temp74
+- __temp143
+- __temp122
+- __temp142
+- __temp94
+- __temp135
+- __temp175
+- __temp148
+- __temp111
+- __temp110
+- __temp162
+- high15
+- bitwise_ptr
+- high12
+- __temp108
+- low9
+- element
+- __temp83
+- __temp169
+- __temp81
+- __temp131
+- __temp112
+- __temp140
+- range_check_ptr
+- __temp105
+- __temp80
+- __temp118
+- __temp127
+- __temp164
+- __temp159
+- __temp88
+- __temp165
+- state
+- __temp181
+- __temp129
+- __temp176
+- __temp90
+- __temp178
+- inputs
+- __temp71
+- __temp85
+- __temp147
+- __temp128
+- low6
+- __temp151
+- low3
+- __temp137
+- __temp160
+- __temp132
+- __temp172
+- high3
+- __temp106
+- __temp121
+- __temp104
+- __temp79
+- __temp177
+- __temp163
+- __temp180
+- __temp84
+- __temp145
+- __temp155
+- __temp89
+- __temp72
+- __temp101
+- __temp141
+- __temp114
+- __temp116
+- __temp70
+- low15
+- __temp92
+- __temp154
+- __temp168
+- __temp133
+- __temp171
+- __temp99
+- __temp170
+- __temp157
+- __temp166
+- __temp93
+- __temp144
+- __temp146
+- __temp174
+- __temp134
+- keccak_ptr
+- __temp109
+- __temp125
+- __temp96
+- __temp115
+- __temp150
+- __temp182
+- __temp153
+- __temp126
+- __temp100
+- __temp173
+- __temp119
+Available ID variables:
+- output0_high
+- range_check_ptr
+- bitwise_ptr
+- output
+- output0
+- output0_low
+- output1
+Available ID variables:
+- __temp56
+- output0_low
+- range_check_ptr
+- __temp52
+- __temp53
+- output1_low
+- output1_mid
+- __temp54
+- output0_high
+- output
+- output1
+- __temp55
+- output0
+- output1_high
+- bitwise_ptr
+output_root: 0xc86f3888a94503d6a8628b54d9ec0d29
+HDPDryRunOutput {
+    task_hash_low: 0x632a96595747b20d6617d3262ff5640e,
+    task_hash_high: 0xb8c6d953b85d4ca15eaf76b5e214ccf1,
+    output_tree_root_low: 0xc86f3888a94503d6a8628b54d9ec0d29,
+    output_tree_root_high: 0x63e5f30e16932f36f608404895bca64b,
+}

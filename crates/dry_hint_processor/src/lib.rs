@@ -6,29 +6,37 @@
 pub mod input;
 pub mod output;
 pub mod syscall_handler;
-
 use std::{any::Any, collections::HashMap};
-
+use num_bigint::BigUint;
 use ::syscall_handler::SyscallHandlerWrapper;
 use cairo_lang_casm::{
     hints::{Hint, StarknetHint},
     operand::{BinOpOperand, DerefOrImmediate, Operation, Register, ResOperand},
 };
+use regex::Regex;
 use cairo_vm::{
     hint_processor::{
         builtin_hint_processor::builtin_hint_processor_definition::{BuiltinHintProcessor, HintProcessorData},
         cairo_1_hint_processor::hint_processor::Cairo1HintProcessor,
         hint_processor_definition::{HintExtension, HintProcessorLogic},
+        builtin_hint_processor::{
+            hint_utils::{get_integer_from_var_name, get_relocatable_from_var_name, insert_value_from_var_name},
+        },
     },
+  
     types::{exec_scope::ExecutionScopes, relocatable::Relocatable},
     vm::{errors::hint_errors::HintError, runners::cairo_runner::ResourceTracker, vm_core::VirtualMachine},
     Felt252,
 };
+use num_traits::ToPrimitive;
 use hints::{extensive_hints, hints, vars, ExtensiveHintImpl, HintImpl};
 use starknet_types_core::felt::Felt;
 use syscall_handler::{evm, starknet};
 use tokio::{runtime::Handle, task};
 use types::HDPDryRunInput;
+
+
+
 
 pub struct CustomHintProcessor {
     inputs: HDPDryRunInput,
@@ -92,6 +100,204 @@ impl HintProcessorLogic for CustomHintProcessor {
                 crate::output::HINT_OUTPUT => self.hint_output(vm, exec_scopes, hpd, constants),
                 _ => Err(HintError::UnknownHint(hint_code.to_string().into_boxed_str())),
             };
+
+            let mut is_custom_hint = false;
+
+            let print_regex = Regex::new(r#"print\(\s*"([^"]+)"\s*,\s*(hex\()?ids\.([a-zA-Z_][a-zA-Z0-9_]*)\)?\s*\)"#).unwrap();
+            if hint_code.contains("print(") {
+                for cap in print_regex.captures_iter(hint_code) {
+                    let label = &cap[1];
+                    let is_hex = cap.get(2).is_some();
+                    let var_name = &cap[3];
+
+
+                    if let Some(hpd) = hint_data.downcast_ref::<HintProcessorData>() {
+                        let data_variable = get_relocatable_from_var_name(
+                            var_name,
+                            vm,
+                            &hpd.ids_data,
+                            &hpd.ap_tracking,
+                        )?;
+                        let value = *vm.get_integer((data_variable + 0)?)?;
+                        if is_hex {
+                            println!("{label}: 0x{:x}", value);
+                        } else {
+                            println!("{label}: {}", value);
+                        }
+                        return Ok(HintExtension::default());
+                    } else {
+                        return Err(HintError::CustomHint(
+                            "Failed to downcast hint_data to HintProcessorData".into(),
+                        ));
+                    }
+
+
+                    // let data_variable = get_relocatable_from_var_name(var_name, vm, &hint_data.ids_data, &hint_data.ap_tracking)?;
+                    // let value = *vm.get_integer((data_variable + 0)?)?;
+
+                    // if is_hex {
+                    //     println!("{label}: 0x{:x}", value);
+                    // } else {
+                    //     println!("{label}: {}", value);
+                    // }
+            
+            
+                    // if let Some(data_variable) = data_variable {
+                    //     let value = vm.get_integer(value)?;
+                    //     if is_hex {
+                    //         println!("{label}: 0x{:x}", value);
+                    //     } else {
+                    //         println!("{label}: {}", value);
+                    //     }
+                    // } else {
+                    //     return Err(HintError::CustomHint(format!("Unknown ID variable: {var_name}").into_boxed_str()));
+                    // }
+                }
+                //return Ok(HintExtension::default());
+                is_custom_hint = true;
+            }
+
+            let print_regex = Regex::new(r#"print_u256\(\s*"([^"]+)"\s*,\s*(hex\()?ids\.([a-zA-Z_][a-zA-Z0-9_]*)\)?\s*\)"#).unwrap();
+            if hint_code.contains("print_u256(") {
+                for cap in print_regex.captures_iter(hint_code) {
+                    let label = &cap[1];
+                    let is_hex = cap.get(2).is_some();
+                    let var_name = &cap[3];
+
+
+                    if let Some(hpd) = hint_data.downcast_ref::<HintProcessorData>() {
+                        let data_variable = get_relocatable_from_var_name(
+                            var_name,
+                            vm,
+                            &hpd.ids_data,
+                            &hpd.ap_tracking,
+                        )?;
+                    
+                        let low = vm.get_integer(data_variable)?;
+                        let high = vm.get_integer((data_variable + 1)?)?;
+                    
+                        let low_big: BigUint = low.to_biguint();
+                        let high_big: BigUint = high.to_biguint();
+                    
+                        let value = (high_big << 128) + low_big;
+                    
+                        if is_hex {
+                            println!("{label}: 0x{:x}", value);
+                        } else {
+                            println!("{label}: {}", value);
+                        }
+                    
+                        return Ok(HintExtension::default());
+                    }
+                    
+                    
+
+
+                    // let data_variable = get_relocatable_from_var_name(var_name, vm, &hint_data.ids_data, &hint_data.ap_tracking)?;
+                    // let value = *vm.get_integer((data_variable + 0)?)?;
+
+                    // if is_hex {
+                    //     println!("{label}: 0x{:x}", value);
+                    // } else {
+                    //     println!("{label}: {}", value);
+                    // }
+            
+            
+                    // if let Some(data_variable) = data_variable {
+                    //     let value = vm.get_integer(value)?;
+                    //     if is_hex {
+                    //         println!("{label}: 0x{:x}", value);
+                    //     } else {
+                    //         println!("{label}: {}", value);
+                    //     }
+                    // } else {
+                    //     return Err(HintError::CustomHint(format!("Unknown ID variable: {var_name}").into_boxed_str()));
+                    // }
+                }
+                //return Ok(HintExtension::default());
+                is_custom_hint = true;
+            }
+
+            let array_print_regex = Regex::new(
+                r#"print_felt252_array\(\s*"([^"]+)"\s*,\s*(hex\()?ids\.([a-zA-Z_][a-zA-Z0-9_]*)\)?\s*\)"#
+            ).unwrap();
+
+            // println!("Available ID variables:");
+            // for k in hpd.ids_data.keys() {
+            //     println!("- {}", k);
+            // }
+
+            // println!("--- Debug: All initialized memory cells that are integers ---");
+
+            // for segment_index in 0..vm.segments.num_segments() {
+            //     let segment_size = vm.segments.get_segment_size(segment_index).unwrap_or(0);
+            
+            //     for offset in 0..segment_size {
+            //         let addr = Relocatable::from((segment_index as isize, offset));
+            //         if let Ok(value) = vm.get_integer(addr) {
+            //             println!("Memory[{}:{}] = {}", segment_index, offset, value);
+            //         }
+            //     }
+            // }
+            
+            
+
+            // if hint_code.contains("print_felt252_array(") {
+            //     for cap in array_print_regex.captures_iter(hint_code) {
+            //         let label = &cap[1];
+            //         let is_hex = cap.get(2).is_some();
+            //         let var_name = &cap[3];
+
+
+                    
+            
+            //         if let Some(hpd) = hint_data.downcast_ref::<HintProcessorData>() {
+            //             println!("meow1");
+            //             // Resolve pointer to array
+            //             let ptr = get_relocatable_from_var_name(
+            //                 var_name,
+            //                 vm,
+            //                 &hpd.ids_data,
+            //                 &hpd.ap_tracking,
+            //             )?;
+            
+            //             // Try to get array length from `ids.{var_name}_len`
+            //             let len_name = format!("{var_name}_len");
+            //             let len_felt = get_integer_from_var_name(
+            //                 &len_name,
+            //                 vm,
+            //                 &hpd.ids_data,
+            //                 &hpd.ap_tracking,
+            //             ).map_err(|_| {
+            //                 HintError::CustomHint(format!(
+            //                     "Could not find array length variable '{}'", len_name
+            //                 ).into_boxed_str())
+            //             })?;
+                        
+
+            //             let len = len_felt.to_usize().ok_or_else(|| {
+            //                 HintError::CustomHint(format!(
+            //                     "Failed to convert '{}' to usize", len_name
+            //                 ).into_boxed_str())
+            //             })?;
+            
+            //             for i in 0..len {
+            //                 println!("meow2");
+            //                 println!("ptr: {}", ptr);
+            //                 let value = *vm.get_integer((ptr - 1)?)?;
+                           
+            //                 if is_hex {
+            //                     println!("{label}[{i}]: 0x{:x}", value);
+            //                 } else {
+            //                     println!("{label}[{i}]: {}", value);
+            //                 }
+            //             }
+            
+            //             return Ok(HintExtension::default());
+            //         }
+            //     }
+            // }
+            
 
             if !matches!(res, Err(HintError::UnknownHint(_))) {
                 return res.map(|_| HintExtension::default());
