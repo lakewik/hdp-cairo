@@ -13,7 +13,7 @@ from starkware.cairo.common.alloc import alloc
 from starkware.cairo.common.uint256 import Uint256, uint256_reverse_endian
 from starkware.cairo.common.dict_access import DictAccess
 from starkware.cairo.common.default_dict import default_dict_new, default_dict_finalize
-from starkware.cairo.common.builtin_keccak.keccak import keccak_felts
+from starkware.cairo.common.builtin_keccak.keccak import keccak_felts_bigend
 from starkware.cairo.common.registers import get_label_location
 from starkware.cairo.common.builtin_poseidon.poseidon import poseidon_hash_many, poseidon_hash
 
@@ -154,17 +154,27 @@ func run{
 
     let (task_hash_preimage) = alloc();
     assert task_hash_preimage[0] = module_hash;
-    memcpy(dst=task_hash_preimage + 1, src=public_inputs, len=public_inputs_len);
-    tempvar task_hash_preimage_len: felt = 1 + public_inputs_len;
 
-    let (taskHash) = keccak_felts(task_hash_preimage_len, task_hash_preimage);
+    // This is the offset for encoding dynamic array in Solidity - data for the inputs array starts at byte position 64 -> 40 in HEX
+    assert task_hash_preimage[1] = 0x0000000000000000000000000000000000000000000000000000000000000040;
+
+    // For Solidity encoding of array size
+    assert task_hash_preimage[2] = public_inputs_len;
+
+    memcpy(dst=task_hash_preimage + 3, src=public_inputs, len=public_inputs_len);
+    tempvar task_hash_preimage_len: felt = 3 + public_inputs_len;
+
+    %{ print("public_inputs_len", hex(ids.public_inputs_len)) %}
+    %{ print("task_hash_preimage_len", hex(ids.task_hash_preimage_len)) %}
+
+    let (taskHash) = keccak_felts_bigend(task_hash_preimage_len, task_hash_preimage);
 
     assert [output_ptr] = taskHash.low;
     assert [output_ptr + 1] = taskHash.high;
     let output_ptr = output_ptr + 2;
 
     let (local leafs: Uint256*) = alloc();
-    felt_array_to_uint256s(counter=retdata_size, retdata=retdata, leafs=leafs);
+    felt_array_to_uint256s(counter=retdata_size , retdata=retdata , leafs=leafs);
 
     let output_root = compute_merkle_root(leafs, retdata_size);
     assert [output_ptr + 0] = output_root.low;

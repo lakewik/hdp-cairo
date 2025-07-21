@@ -5790,6 +5790,8 @@ dependencies = [
  "cairo-lang-starknet-classes",
  "cairo-vm",
  "hints",
+ "num-bigint",
+ "regex",
  "serde",
  "starknet-types-core",
  "strum_macros 0.26.4",

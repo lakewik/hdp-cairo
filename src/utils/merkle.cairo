@@ -61,7 +61,7 @@ func compute_merkle_root{range_check_ptr, bitwise_ptr: BitwiseBuiltin*, keccak_p
         let (res) = keccak_uint256s{range_check_ptr=range_check_ptr, bitwise_ptr=bitwise_ptr}(
             n_elements=1, elements=leafs
         );
-    
+
         return (res);
     }
 
@@ -135,10 +135,10 @@ func compute_leaf_hash_inner{
     let (first_hash) = keccak(first_round_input_start, 32);
 
 
- //   %{ print("first_hash", hex(ids.first_hash)) %}
+    //%{ print("first_round_input_start", hex(ids.first_round_input_start)) %}
 
-    %{ print_u256("first_hash", hex(ids.first_hash)) %}
-    %{ print_u256("leaf", hex(ids.leaf)) %}
+    //%{ print_u256("first_hash", hex(ids.first_hash)) %}
+    //%{ print_u256("leaf", hex(ids.leaf)) %}
 
 
     let (second_round_input) = alloc();
@@ -149,7 +149,7 @@ func compute_leaf_hash_inner{
 
 
     let (leaf_hash) = keccak(second_round_input_start, 32);
- %{ print_u256("leaf_hash", hex(ids.leaf_hash)) %}
+// %{ print_u256("leaf_hash", hex(ids.leaf_hash)) %}
 
     return (leaf_hash);
 }
@@ -162,8 +162,8 @@ func hash_pair{range_check_ptr, bitwise_ptr: BitwiseBuiltin*, keccak_ptr: Keccak
     alloc_locals;
     let (pair: Uint256*) = alloc();
     local is_left_smaller: felt;
-     %{ print_u256("hashpair left", hex(ids.left)) %}
-       %{ print_u256("hashpair right", hex(ids.right)) %}
+     //%{ print_u256("hashpair left", hex(ids.left)) %}
+       //%{ print_u256("hashpair right", hex(ids.right)) %}
 
     // ToDo: We have to figure out if the pair-wise order is something we want to do in a hint. The order could be messed with by a malicious prover.
     %{
@@ -206,7 +206,7 @@ func hash_pair{range_check_ptr, bitwise_ptr: BitwiseBuiltin*, keccak_ptr: Keccak
         n_elements=2, elements=pair
     );
 
-     %{ print_u256(" hash pair result ", hex(ids.res)) %}
+    // %{ print_u256(" hash pair result ", hex(ids.res)) %}
 
     return (res);
 }

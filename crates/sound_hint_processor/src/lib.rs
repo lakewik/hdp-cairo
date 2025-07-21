@@ -9,6 +9,10 @@ pub mod syscall_handler;
 
 use std::{any::Any, collections::HashMap};
 
+
+use num_bigint::BigUint;
+
+use regex::Regex;
 use ::syscall_handler::SyscallHandlerWrapper;
 use cairo_lang_casm::{
     hints::{Hint, StarknetHint},
@@ -19,6 +23,9 @@ use cairo_vm::{
         builtin_hint_processor::builtin_hint_processor_definition::{BuiltinHintProcessor, HintProcessorData},
         cairo_1_hint_processor::hint_processor::Cairo1HintProcessor,
         hint_processor_definition::{HintExtension, HintProcessorLogic},
+        builtin_hint_processor::{
+            hint_utils::{get_integer_from_var_name, get_relocatable_from_var_name, insert_value_from_var_name},
+        },
     },
     types::{exec_scope::ExecutionScopes, relocatable::Relocatable},
     vm::{errors::hint_errors::HintError, runners::cairo_runner::ResourceTracker, vm_core::VirtualMachine},
@@ -91,6 +98,79 @@ impl HintProcessorLogic for CustomHintProcessor {
                 crate::output::HINT_OUTPUT => self.hint_output(vm, exec_scopes, hpd, constants),
                 _ => Err(HintError::UnknownHint(hint_code.to_string().into_boxed_str())),
             };
+
+
+            let mut is_custom_hint = false;
+
+            let print_regex = Regex::new(r#"print\(\s*"([^"]+)"\s*,\s*(hex\()?ids\.([a-zA-Z_][a-zA-Z0-9_]*)\)?\s*\)"#).unwrap();
+            if hint_code.contains("print(") {
+                for cap in print_regex.captures_iter(hint_code) {
+                    let label = &cap[1];
+                    let is_hex = cap.get(2).is_some();
+                    let var_name = &cap[3];
+
+
+                    if let Some(hpd) = hint_data.downcast_ref::<HintProcessorData>() {
+                        let data_variable = get_relocatable_from_var_name(
+                            var_name,
+                            vm,
+                            &hpd.ids_data,
+                            &hpd.ap_tracking,
+                        )?;
+                        let value = *vm.get_integer((data_variable + 0)?)?;
+                        if is_hex {
+                            println!("{label}: 0x{:x}", value);
+                        } else {
+                            println!("{label}: {}", value);
+                        }
+                        return Ok(HintExtension::default());
+                    } else {
+                        return Err(HintError::CustomHint(
+                            "Failed to downcast hint_data to HintProcessorData".into(),
+                        ));
+                    }
+
+                }
+                is_custom_hint = true;
+            }
+
+            let print_regex = Regex::new(r#"print_u256\(\s*"([^"]+)"\s*,\s*(hex\()?ids\.([a-zA-Z_][a-zA-Z0-9_]*)\)?\s*\)"#).unwrap();
+            if hint_code.contains("print_u256(") {
+                for cap in print_regex.captures_iter(hint_code) {
+                    let label = &cap[1];
+                    let is_hex = cap.get(2).is_some();
+                    let var_name = &cap[3];
+
+
+                    if let Some(hpd) = hint_data.downcast_ref::<HintProcessorData>() {
+                        let data_variable = get_relocatable_from_var_name(
+                            var_name,
+                            vm,
+                            &hpd.ids_data,
+                            &hpd.ap_tracking,
+                        )?;
+
+                        let low = vm.get_integer(data_variable)?;
+                        let high = vm.get_integer((data_variable + 1)?)?;
+
+                        let low_big: BigUint = low.to_biguint();
+                        let high_big: BigUint = high.to_biguint();
+
+                        let value = (high_big << 128) + low_big;
+
+                        if is_hex {
+                            println!("{label}: 0x{:x}", value);
+                        } else {
+                            println!("{label}: {}", value);
+                        }
+
+                        return Ok(HintExtension::default());
+                    }
+
+                }
+                is_custom_hint = true;
+            }
+
 
             if !matches!(res, Err(HintError::UnknownHint(_))) {
                 return res.map(|_| HintExtension::default());
