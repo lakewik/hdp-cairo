@@ -9,7 +9,7 @@ use alloy::{
 };
 use cairo_vm::Felt252;
 use eth_trie_proofs::{tx_receipt_trie::TxReceiptsMptHandler, tx_trie::TxsMptHandler};
-use indexer::models::BlockHeader;
+use indexer::models::{BlockHeader, HashingFunction};
 use starknet_types_core::felt::FromStrError;
 use types::{
     keys::{self, evm::get_corresponding_rpc_url},
@@ -42,8 +42,14 @@ impl ProofKeys {
         deployed_on_chain_id: u128,
         accumulates_chain_id: u128,
         block_number: u64,
+        hashing: HashingFunction,
     ) -> Result<HeaderMmrMeta<Header>, FetcherError> {
-        let (mmr_proof, meta) = super::ProofKeys::fetch_mmr_proof(deployed_on_chain_id, accumulates_chain_id, block_number).await?;
+        let (mmr_proof, meta) = super::ProofKeys::fetch_mmr_proof(
+            deployed_on_chain_id,
+            accumulates_chain_id,
+            block_number,
+            hashing,
+        ).await?;
 
         let proof = HeaderProof {
             leaf_idx: mmr_proof.element_index,

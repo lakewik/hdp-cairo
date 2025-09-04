@@ -20,7 +20,7 @@ use types::{proofs::evm, ChainProofs};
 
 use crate::vars;
 
-pub const HINT_HEADERS_WITH_MMR_LEN: &str = "memory[ap] = to_felt_or_relocatable(len(batch_evm.headers_with_mmr_evm))";
+pub const HINT_HEADERS_WITH_MMR_LEN: &str = "memory[ap] = to_felt_or_relocatable(len(batch_evm.headers_with_mmr))";
 
 pub fn hint_headers_with_mmr_len(
     vm: &mut VirtualMachine,

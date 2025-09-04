@@ -62,6 +62,9 @@ func verify_block_tx_proofs_inner{
 
     tempvar proof_len: felt = nondet %{ len(transaction.proof) %};
     tempvar block_number: felt = nondet %{ transaction.block_number %};
+    // Debug: print transaction block_number to compare with memorized headers
+    tempvar value: felt = block_number;
+    %{ print(f"{ids.value}") %}
 
     let (proof_bytes_len: felt*) = alloc();
     %{ segments.write_arg(ids.proof_bytes_len, transaction.proof_bytes_len) %}

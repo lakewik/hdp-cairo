@@ -28,8 +28,10 @@ func run_state_verification{
     alloc_locals;
 
     // Step 1: Verify MMR and headers inclusion
-    tempvar n_proofs: felt = nondet %{ len(batch_evm.headers_with_mmr_evm) %};
-    let (mmr_meta_idx) = verify_mmr_batches(n_proofs, mmr_meta_idx);
+    tempvar n_proofs: felt = nondet %{ len(batch_evm.headers_with_mmr) %};
+    // 0 = Poseidon, 1 = Keccak
+    tempvar hashing_fn: felt = nondet %{ batch_evm.mmr_hashing_function %};
+    let (mmr_meta_idx) = verify_mmr_batches(n_proofs, mmr_meta_idx, hashing_fn);
     // Step 2: Verify the accounts
     verify_accounts();
     // Step 3: Verify the storage items

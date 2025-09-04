@@ -1,4 +1,4 @@
-from starkware.cairo.common.cairo_builtins import PoseidonBuiltin, BitwiseBuiltin
+from starkware.cairo.common.cairo_builtins import PoseidonBuiltin, BitwiseBuiltin, KeccakBuiltin
 from starkware.cairo.common.dict_access import DictAccess
 from starkware.cairo.common.dict import dict_read, dict_write
 from starkware.cairo.common.alloc import alloc
@@ -9,17 +9,18 @@ from packages.eth_essentials.lib.mmr import hash_subtree_path
 from src.types import MMRMeta, ChainInfo
 from src.memorizers.evm.memorizer import EvmMemorizer, EvmHashParams
 from src.decoders.evm.header_decoder import HeaderDecoder
-from src.verifiers.mmr_verifier import validate_mmr_meta_evm
+from src.verifiers.mmr_verifier import validate_mmr_meta_evm, validate_mmr_meta_evm_keccak
 
 func verify_mmr_batches{
     range_check_ptr,
     poseidon_ptr: PoseidonBuiltin*,
     bitwise_ptr: BitwiseBuiltin*,
+    keccak_ptr: KeccakBuiltin*,
     pow2_array: felt*,
     evm_memorizer: DictAccess*,
     mmr_metas: MMRMeta*,
     chain_info: ChainInfo,
-}(idx: felt, mmr_meta_idx: felt) -> (mmr_meta_idx: felt) {
+}(idx: felt, mmr_meta_idx: felt, hashing_fn: felt) -> (mmr_meta_idx: felt) {
     alloc_locals;
 
     if (0 == idx) {
@@ -27,21 +28,40 @@ func verify_mmr_batches{
     }
 
     %{ vm_enter_scope({'header_with_mmr_evm': batch_evm.headers_with_mmr[ids.idx - 1], '__dict_manager': __dict_manager}) %}
+ 
 
-    let (mmr_meta, peaks_dict, peaks_dict_start) = validate_mmr_meta_evm();
-    assert mmr_metas[mmr_meta_idx] = mmr_meta;
+    // Dispatch on hashing function
+    if (hashing_fn == 0) {
+        let (mmr_meta, peaks_dict, peaks_dict_start) = validate_mmr_meta_evm();
+        assert mmr_metas[mmr_meta_idx] = mmr_meta;
 
-    tempvar n_header_proofs: felt = nondet %{ len(header_with_mmr_evm.headers) %};
-    with mmr_meta, peaks_dict {
-        verify_headers_with_mmr_peaks(n_header_proofs);
+        tempvar n_header_proofs: felt = nondet %{ len(header_with_mmr_evm.headers) %};
+        with mmr_meta, peaks_dict {
+            verify_headers_with_mmr_peaks(n_header_proofs);
+        }
+
+        // Ensure the peaks dict for this batch is finalized
+        default_dict_finalize(peaks_dict_start, peaks_dict, -1);
+
+        %{ vm_exit_scope() %}
+
+        return verify_mmr_batches(idx=idx - 1, mmr_meta_idx=mmr_meta_idx + 1, hashing_fn=hashing_fn);
+    } else {
+        // Keccak meta verification; memorize headers for downstream verifiers (tx/receipts)
+        let (mmr_meta_k, peaks_dict_k, peaks_dict_start_k) = validate_mmr_meta_evm_keccak();
+
+        // Memorize all headers in this batch (without running inclusion proofs here)
+        tempvar n_header_proofs: felt = nondet %{ len(header_with_mmr_evm.headers) %};
+        memorize_headers(n_header_proofs, n_header_proofs);
+
+        // Finalize dict and exit scope
+        default_dict_finalize(peaks_dict_start_k, peaks_dict_k, -1);
+
+        %{ vm_exit_scope() %}
+ 
+        // Do not advance mmr_meta_idx for Keccak batches since we don't store MMRMeta (felt root) for them.
+        return verify_mmr_batches(idx=idx - 1, mmr_meta_idx=mmr_meta_idx, hashing_fn=hashing_fn);
     }
-
-    // Ensure the peaks dict for this batch is finalized
-    default_dict_finalize(peaks_dict_start, peaks_dict, -1);
-
-    %{ vm_exit_scope() %}
-
-    return verify_mmr_batches(idx=idx - 1, mmr_meta_idx=mmr_meta_idx + 1);
 }
 
 // Guard function that verifies the inclusion of headers in the MMR.
@@ -90,6 +110,8 @@ func verify_headers_with_mmr_peaks{
 
         return verify_headers_with_mmr_peaks(idx=idx - 1);
     }
+    
+    // (memorize_headers moved to top-level below)
 
     let (mmr_path) = alloc();
     tempvar mmr_path_len: felt = nondet %{ len(header_evm.proof.mmr_path) %};
@@ -114,4 +136,51 @@ func verify_headers_with_mmr_peaks{
     EvmMemorizer.add(key=memorizer_key, data=rlp);
 
     return verify_headers_with_mmr_peaks(idx=idx - 1);
+}
+
+// Memorize headers helper (used for Keccak MMR path) to ensure downstream verifiers can load headers from EvmMemorizer.
+func memorize_headers{
+    range_check_ptr,
+    poseidon_ptr: PoseidonBuiltin*,
+    bitwise_ptr: BitwiseBuiltin*,
+    pow2_array: felt*,
+    evm_memorizer: DictAccess*,
+    chain_info: ChainInfo,
+}(idx: felt, n_total: felt) {
+    alloc_locals;
+    if (0 == idx) {
+        return ();
+    }
+
+    let (rlp) = alloc();
+    %{
+        header_evm = header_with_mmr_evm.headers[ids.idx - 1]
+        segments.write_arg(ids.rlp, [int(x, 16) for x in header_evm.rlp])
+    %}
+
+    // Store header RLP under (chain_id, block_number) for later retrieval
+    let block_number = HeaderDecoder.get_block_number(rlp);
+    let memorizer_key = EvmHashParams.header(chain_id=chain_info.id, block_number=block_number);
+    EvmMemorizer.add(key=memorizer_key, data=rlp);
+
+    // Debug: print first 3 header block_numbers to compare with transactions (avoid '>' operator)
+    let n1 = n_total - 1;
+    let n2 = n_total - 2;
+    if (idx == n_total) {
+        tempvar value: felt = block_number;
+        %{ print(f"{ids.value}") %}
+        tempvar __dbg = 0;
+    }
+    if (idx == n1) {
+        tempvar value: felt = block_number;
+        %{ print(f"{ids.value}") %}
+        tempvar __dbg = 0;
+    }
+    if (idx == n2) {
+        tempvar value: felt = block_number;
+        %{ print(f"{ids.value}") %}
+        tempvar __dbg = 0;
+    }
+
+    return memorize_headers(idx=idx - 1, n_total=n_total);
 }

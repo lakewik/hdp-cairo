@@ -19,7 +19,7 @@ use reqwest as _;
 use starknet_types_core as _;
 use syscall_handler::SyscallHandler;
 use thiserror as _;
-use types::{ChainProofs, ETHEREUM_MAINNET_CHAIN_ID, ETHEREUM_TESTNET_CHAIN_ID, 
+use types::{ChainProofs, HashingFunction, ETHEREUM_MAINNET_CHAIN_ID, ETHEREUM_TESTNET_CHAIN_ID,
     STARKNET_MAINNET_CHAIN_ID, STARKNET_TESTNET_CHAIN_ID, OPTIMISM_MAINNET_CHAIN_ID, OPTIMISM_TESTNET_CHAIN_ID};
 
 #[tokio::main]
@@ -31,7 +31,12 @@ async fn main() -> Result<(), fetcher::FetcherError> {
     let syscall_handler: SyscallHandler<evm::CallContractHandler, starknet::CallContractHandler> = serde_json::from_slice(&input_file)?;
     let proof_keys = parse_syscall_handler(syscall_handler)?;
 
-    let fetcher = Fetcher::new(&proof_keys);
+    // Resolve requested MMR hashing function for indexer fetch and annotation
+    let mmr_hashing_function = match args.mmr_hashing_function.to_lowercase().as_str() {
+        "keccak" => HashingFunction::Keccak,
+        _ => HashingFunction::Poseidon, // default
+    };
+    let fetcher = Fetcher::new_with_hashing(&proof_keys, mmr_hashing_function, args.deployed_on_chain);
     let (eth_proofs_mainnet, eth_proofs_sepolia, starknet_proofs_mainnet, starknet_proofs_sepolia, optimism_proofs_mainnet, optimism_proofs_sepolia) = tokio::try_join!(
         fetcher.collect_evm_proofs(ETHEREUM_MAINNET_CHAIN_ID),
         fetcher.collect_evm_proofs(ETHEREUM_TESTNET_CHAIN_ID),

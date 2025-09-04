@@ -6,6 +6,7 @@ use storage::Storage;
 use transaction::Transaction;
 
 use super::header::HeaderMmrMeta;
+use crate::HashingFunction;
 
 pub mod account;
 pub mod header;
@@ -15,6 +16,7 @@ pub mod transaction;
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub struct Proofs {
+    pub mmr_hashing_function: HashingFunction,
     pub headers_with_mmr: Vec<HeaderMmrMeta<Header>>,
     pub accounts: Vec<Account>,
     pub storages: Vec<Storage>,

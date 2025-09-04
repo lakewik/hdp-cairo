@@ -30,6 +30,19 @@ pub const RPC_URL_STARKNET_TESTNET: &str = "RPC_URL_STARKNET_TESTNET";
 
 pub const RPC_URL_HERODOTUS_INDEXER: &str = "RPC_URL_HERODOTUS_INDEXER";
 
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "lowercase")]
+pub enum HashingFunction {
+    Poseidon,
+    Keccak,
+}
+
+impl Default for HashingFunction {
+    fn default() -> Self {
+        HashingFunction::Poseidon
+    }
+}
+
 pub const ETHEREUM_MAINNET_CHAIN_ID: u128 = 0x1;
 pub const ETHEREUM_TESTNET_CHAIN_ID: u128 = 0xaa36a7;
 pub const OPTIMISM_MAINNET_CHAIN_ID: u128 = 0xa;

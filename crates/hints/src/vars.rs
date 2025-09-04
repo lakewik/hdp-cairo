@@ -33,6 +33,7 @@ pub mod ids {
     pub const STORAGE_ADDRESSES: &str = "storage_addresses";
     pub const FIELDS: &str = "fields";
     pub const PEAKS: &str = "peaks";
+    pub const PEAKS_KECCAK: &str = "peaks_keccak";
     pub const CHAIN_PROOFS_LEN: &str = "chain_proofs_len";
     pub const RLP_LEN: &str = "rlp_len";
     pub const ADDRESS: &str = "address";

@@ -148,3 +148,20 @@ pub fn hint_mmr_path(
 
     Ok(())
 }
+
+// Hint to expose mmr_hashing_function (0=Poseidon, 1=Keccak) from batch_evm to Cairo.
+pub const HINT_MMR_HASHING_FUNCTION: &str = "memory[ap] = to_felt_or_relocatable(batch_evm.mmr_hashing_function)";
+
+pub fn hint_mmr_hashing_function(
+    vm: &mut VirtualMachine,
+    exec_scopes: &mut ExecutionScopes,
+    _hint_data: &HintProcessorData,
+    _constants: &HashMap<String, Felt252>,
+) -> Result<(), HintError> {
+    let proofs = exec_scopes.get::<evm::Proofs>(vars::scopes::BATCH_EVM)?;
+    let v: u8 = match proofs.mmr_hashing_function {
+        types::HashingFunction::Poseidon => 0,
+        types::HashingFunction::Keccak => 1,
+    };
+    insert_value_into_ap(vm, Felt252::from(v))
+}
