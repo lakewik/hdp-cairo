@@ -78,7 +78,9 @@ pub fn hints() -> HashMap<String, HintImpl> {
     hints.insert(verifiers::evm::header_verifier::HINT_LEAF_IDX.into(), verifiers::evm::header_verifier::hint_leaf_idx);
     hints.insert(verifiers::evm::header_verifier::HINT_MMR_PATH_LEN.into(), verifiers::evm::header_verifier::hint_mmr_path_len);
     hints.insert(verifiers::evm::header_verifier::HINT_MMR_PATH.into(), verifiers::evm::header_verifier::hint_mmr_path);
+    hints.insert(verifiers::evm::header_verifier::HINT_MMR_PATH_KECCAK.into(), verifiers::evm::header_verifier::hint_mmr_path_keccak);
     hints.insert(verifiers::evm::header_verifier::HINT_RLP_LEN.into(), verifiers::evm::header_verifier::hint_rlp_len);
+    hints.insert(verifiers::evm::header_verifier::HINT_RLP_BYTES.into(), verifiers::evm::header_verifier::hint_rlp_bytes);
     hints.insert(verifiers::evm::header_verifier::HINT_SET_HEADER.into(), verifiers::evm::header_verifier::hint_set_header);
     hints.insert(verifiers::evm::header_verifier::HINT_VM_ENTER_SCOPE.into(), verifiers::evm::header_verifier::hint_vm_enter_scope);
     hints.insert(verifiers::evm::header_verifier::HINT_MMR_HASHING_FUNCTION.into(), verifiers::evm::header_verifier::hint_mmr_hashing_function);

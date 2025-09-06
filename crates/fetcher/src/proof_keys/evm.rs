@@ -83,6 +83,11 @@ impl ProofKeys {
 
     pub async fn fetch_account_proof(key: &keys::evm::account::Key) -> Result<Account, FetcherError> {
         let rpc_url = get_corresponding_rpc_url(key).map_err(|e| FetcherError::InternalError(e.to_string()))?;
+        
+        // Debug: Print the request details
+        println!("[EVM RPC REQUEST] POST {} - eth_getProof", rpc_url);
+        println!("[EVM RPC REQUEST] Address: {}, Block: {}", key.address, key.block_number);
+        
         let provider = RootProvider::<Ethereum>::new_http(Url::parse(&rpc_url).unwrap());
         let value = provider
             .get_proof(key.address, vec![])
@@ -97,6 +102,11 @@ impl ProofKeys {
 
     pub async fn fetch_storage_proof(key: &keys::evm::storage::Key) -> Result<(Account, Storage), FetcherError> {
         let rpc_url = get_corresponding_rpc_url(key).map_err(|e| FetcherError::InternalError(e.to_string()))?;
+        
+        // Debug: Print the request details
+        println!("[EVM RPC REQUEST] POST {} - eth_getProof", rpc_url);
+        println!("[EVM RPC REQUEST] Address: {}, Storage Slot: {}, Block: {}", key.address, key.storage_slot, key.block_number);
+        
         let provider = RootProvider::<Ethereum>::new_http(Url::parse(&rpc_url).unwrap());
         let value = provider
             .get_proof(key.address, vec![key.storage_slot])

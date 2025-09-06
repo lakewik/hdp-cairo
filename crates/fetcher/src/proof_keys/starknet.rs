@@ -65,18 +65,24 @@ impl ProofKeys {
 
     pub async fn fetch_storage_proof(key: &keys::starknet::storage::Key) -> Result<Storage, FetcherError> {
         let rpc_url = get_corresponding_rpc_url(key).map_err(|e| FetcherError::InternalError(e.to_string()))?;
+        let request_body = serde_json::json!({
+            "jsonrpc": "2.0",
+            "method": "pathfinder_getProof",
+            "params": [
+                {"block_number": key.block_number},
+                key.address,
+                [key.storage_slot]
+            ],
+            "id": 1
+        });
+
+        // Debug: Print the request details
+        println!("[STARKNET RPC REQUEST] POST {}", rpc_url);
+        println!("[STARKNET RPC REQUEST] Body: {}", serde_json::to_string_pretty(&request_body).unwrap());
+
         let response = reqwest::Client::new()
             .post(Url::parse(&rpc_url).unwrap())
-            .json(&serde_json::json!({
-                "jsonrpc": "2.0",
-                "method": "pathfinder_getProof",
-                "params": [
-                    {"block_number": key.block_number},
-                    key.address,
-                    [key.storage_slot]
-                ],
-                "id": 1
-            }))
+            .json(&request_body)
             .send()
             .await?;
 

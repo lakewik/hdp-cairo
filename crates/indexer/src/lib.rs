@@ -32,10 +32,15 @@ impl Indexer {
     pub async fn get_headers_proof(&self, query: accumulators::IndexerQuery) -> Result<accumulators::IndexerProofResponse, IndexerError> {
         // Parse base URL from environment variable
         let base_url = Url::parse(&env::var(RPC_URL_HERODOTUS_INDEXER).unwrap()).unwrap();
+        let url = base_url.join("/accumulators/proofs").unwrap();
+
+        // Debug: Print the request details
+        println!("[INDEXER REQUEST] GET {}", url);
+        println!("[INDEXER REQUEST] Query params: {:?}", query);
 
         let response = self
             .client
-            .get(base_url.join("/accumulators/proofs").unwrap())
+            .get(url)
             .query(&query)
             .send()
             .await
@@ -70,10 +75,15 @@ impl Indexer {
     pub async fn get_blocks(&self, query: blocks::IndexerQuery) -> Result<blocks::IndexerBlockResponse, IndexerError> {
         // Parse base URL from environment variable
         let base_url = Url::parse(&env::var(RPC_URL_HERODOTUS_INDEXER).unwrap()).unwrap();
+        let url = base_url.join("/blocks").unwrap();
+
+        // Debug: Print the request details
+        println!("[INDEXER REQUEST] GET {}", url);
+        println!("[INDEXER REQUEST] Query params: {:?}", query);
 
         let response = self
             .client
-            .get(base_url.join("/blocks").unwrap())
+            .get(url)
             .query(&query)
             .send()
             .await
