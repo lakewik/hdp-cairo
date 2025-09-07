@@ -1,11 +1,11 @@
 use account::Account;
-use header::Header;
+use header::{Header, HeaderKeccak};
 use receipt::Receipt;
 use serde::{Deserialize, Serialize};
 use storage::Storage;
 use transaction::Transaction;
 
-use super::header::HeaderMmrMeta;
+use super::header::{HeaderMmrMeta, HeaderMmrMetaKeccak};
 use crate::HashingFunction;
 
 pub mod account;
@@ -24,7 +24,32 @@ pub struct Proofs {
     pub transaction_receipts: Vec<Receipt>,
 }
 
+// New Proofs struct for Keccak that preserves full 256-bit precision
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq, Default)]
+pub struct ProofsKeccak {
+    pub mmr_hashing_function: HashingFunction,
+    pub headers_with_mmr: Vec<HeaderMmrMetaKeccak<HeaderKeccak>>,
+    pub accounts: Vec<Account>,
+    pub storages: Vec<Storage>,
+    pub transactions: Vec<Transaction>,
+    pub transaction_receipts: Vec<Receipt>,
+}
+
 impl Proofs {
+    pub fn len(&self) -> usize {
+        self.headers_with_mmr.len() + self.accounts.len() + self.storages.len() + self.transactions.len() + self.transaction_receipts.len()
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.headers_with_mmr.is_empty()
+            && self.accounts.is_empty()
+            && self.storages.is_empty()
+            && self.transactions.is_empty()
+            && self.transaction_receipts.is_empty()
+    }
+}
+
+impl ProofsKeccak {
     pub fn len(&self) -> usize {
         self.headers_with_mmr.len() + self.accounts.len() + self.storages.len() + self.transactions.len() + self.transaction_receipts.len()
     }

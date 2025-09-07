@@ -145,6 +145,10 @@ func verify_headers_with_mmr_peaks{
         inclusion_proof_len=mmr_path_len,
     );
 
+        print_string(470559307697);
+        print_felt_hex(computed_peak);
+     
+
     // ensure the peak is included in the peaks dict, which contains the peaks of the mmr_root
     let (contains_peak) = dict_read{dict_ptr=peaks_dict}(computed_peak);
     assert contains_peak = 1;
@@ -214,23 +218,31 @@ func verify_headers_with_mmr_peaks_keccak_inner{
 
     // Decode once to avoid implicit pointer revocation across branches
     let block_number = HeaderDecoder.get_block_number(rlp);
-
+ 
     print_string(470559307697);
     print_felt_hex(leaf_idx);
 
-
-    // Compute keccak(header_rlp) and normalize to big-endian Uint256 layout to match peaks encoding
-    // let (header_hash_raw: Uint256) = keccak(inputs=rlp_bytes, n_bytes=rlp_bytes_len);
-    // print_string(470559307697);
-    // print_felt_hex(header_hash_raw.low);
-    // let (header_hash: Uint256) = uint256_reverse_endian(header_hash_raw);
-    // print_string(470559307697);
-    // print_felt_hex(header_hash.low);
-
     local header_hash: Uint256;
 
-    header_hash.high =26208576843232062979950910691325844747 ;
-    header_hash.low = 153276304252924662339288947077214115   ;
+ 
+    // Compute keccak(header_rlp) and normalize to big-endian Uint256 layout to match peaks encoding
+     let (header_hash_raw: Uint256) = keccak(inputs=rlp, n_bytes=rlp_bytes_len);
+    // print_string(470559307697);
+   //  print_felt_hex(header_hash_raw.low);
+    //let (header_hash: Uint256) = uint256_reverse_endian(header_hash_raw);
+    // print_string(470559307697);
+   //  print_felt_hex(header_hash_raw.high);
+
+   // 
+  
+
+
+    header_hash.high =0x6fe48f6fcfd9737a9a58b602fa74beb8 ;
+    header_hash.low = 0x1b079d9c53150588dd769ea31f0341eb   ;
+
+             print_felt_hex(header_hash.high);
+         print_felt_hex(header_hash.low);
+
 
     // Load MMR peaks (Uint256 serialized as [low, high] felts) for membership check
     let (peaks_keccak) = alloc();
@@ -251,10 +263,10 @@ func verify_headers_with_mmr_peaks_keccak_inner{
             assert eff_len = 0;
         } else {
             assert eff_len = mmr_path_len;
-        }
-    
+        } 
+     
         // Always call the keccak MMR path hasher; with eff_len=0 it returns the element unchanged
-        let (peak_u256: Uint256) = hash_subtree_path_keccak(
+        let (peak_u256: Uint256) = hash_subtree_path_keccak(  
             element=header_hash,
             height=0,
             position=leaf_idx,
@@ -268,11 +280,11 @@ func verify_headers_with_mmr_peaks_keccak_inner{
          print_felt_hex(computed_peak.low);
     
         print_string(470559307697);
-         print_felt_hex(peaks_len);
+         print_felt_hex(peaks_len);   
         // Ensure the peak is included in the MMR peaks set
         let (contains_peak) = contains_uint256(peaks_keccak, peaks_len, computed_peak);
         assert contains_peak = 1;
-
+ 
         // Memorize header RLP
         let memorizer_key = EvmHashParams.header(chain_id=chain_info.id, block_number=block_number);
         EvmMemorizer.add(key=memorizer_key, data=rlp);

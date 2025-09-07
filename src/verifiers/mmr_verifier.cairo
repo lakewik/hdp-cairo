@@ -4,6 +4,8 @@ from packages.eth_essentials.lib.utils import write_felt_array_to_dict_keys
 from starkware.cairo.common.dict_access import DictAccess
 from starkware.cairo.common.default_dict import default_dict_new
 from starkware.cairo.common.alloc import alloc
+from src.utils.debug import print_felt_hex, print_string, print_felt
+
 from starkware.cairo.common.uint256 import Uint256
 from packages.eth_essentials.lib.mmr import (
     mmr_root_poseidon,
@@ -126,6 +128,12 @@ func validate_mmr_meta_evm_keccak{range_check_ptr, bitwise_ptr: BitwiseBuiltin*,
     let (root) = mmr_root_keccak(peaks_keccak, mmr_meta.size, peaks_len);
     assert 0 = mmr_meta.root_low - root.low;
     assert 0 = mmr_meta.root_high - root.high;
+
+    // print debug MMR meta root
+    print_string(1111);
+    print_string(1111);
+    print_felt_hex(mmr_meta.root_high);
+    print_felt_hex(mmr_meta.root_low);
 
     return (mmr_meta=mmr_meta, dict=dict, dict_start=dict_start);
 }

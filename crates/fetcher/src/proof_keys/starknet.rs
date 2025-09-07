@@ -7,7 +7,7 @@ use starknet_types_core::felt::FromStrError;
 use types::{
     keys::{self, starknet::get_corresponding_rpc_url},
     proofs::{
-        header::{HeaderMmrMeta, HeaderProof},
+        header::{HeaderMmrMeta, HeaderProof, MmrPathElement},
         starknet::{
             header::Header,
             storage::{GetProofOutput, Storage},
@@ -43,8 +43,9 @@ impl ProofKeys {
             mmr_path: mmr_proof
                 .siblings_hashes
                 .iter()
-                .map(|hash| Felt252::from_hex(hash.as_str()))
-                .collect::<Result<Vec<Felt252>, FromStrError>>()?,
+                .map(|hash| MmrPathElement::Felt252(Felt252::from_hex(hash.as_str()).unwrap()))
+                .collect(),
+            element_hash: Some(mmr_proof.element_hash),
         };
 
         match &mmr_proof.block_header {
