@@ -1,7 +1,7 @@
 use alloy::primitives::Bytes;
 use serde::{Deserialize, Serialize};
 
-use crate::proofs::header::{HeaderProof, HeaderProofKeccak};
+use crate::proofs::header::HeaderProof;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Eq, Hash, Default)]
 pub struct Header {
@@ -9,9 +9,9 @@ pub struct Header {
     pub proof: HeaderProof,
 }
 
-// New Header struct for Keccak that preserves full 256-bit precision
+// Header struct for Keccak - now uses the same HeaderProof with Bytes
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Eq, Hash, Default)]
 pub struct HeaderKeccak {
     pub rlp: Bytes,
-    pub proof: HeaderProofKeccak,
+    pub proof: HeaderProof,
 }

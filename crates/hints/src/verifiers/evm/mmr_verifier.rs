@@ -103,6 +103,7 @@ pub fn hint_headers_with_mmr_peaks_keccak(
 
     let mut data: Vec<MaybeRelocatable> = Vec::with_capacity(header_with_mmr.mmr_meta.peaks.len() * 2);
     for f in header_with_mmr.mmr_meta.peaks.iter() {
+        println!("Processing MMR peaks element: Uint256({:?})", f);
         let src: &[u8] = f.as_ref();
         // Left-pad to 32 bytes big-endian
         let mut wide = [0u8; 32];

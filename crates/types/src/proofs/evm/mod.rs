@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 use storage::Storage;
 use transaction::Transaction;
 
-use super::header::{HeaderMmrMeta, HeaderMmrMetaKeccak};
+use super::header::HeaderMmrMeta;
 use crate::HashingFunction;
 
 pub mod account;
@@ -28,7 +28,7 @@ pub struct Proofs {
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub struct ProofsKeccak {
     pub mmr_hashing_function: HashingFunction,
-    pub headers_with_mmr: Vec<HeaderMmrMetaKeccak<HeaderKeccak>>,
+    pub headers_with_mmr: Vec<HeaderMmrMeta<HeaderKeccak>>,
     pub accounts: Vec<Account>,
     pub storages: Vec<Storage>,
     pub transactions: Vec<Transaction>,

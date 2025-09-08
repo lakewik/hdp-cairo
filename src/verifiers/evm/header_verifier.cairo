@@ -215,6 +215,9 @@ func verify_headers_with_mmr_peaks_keccak_inner{
     %}
     tempvar rlp_bytes_len: felt = nondet %{ len(header_evm.rlp) %};
     tempvar leaf_idx: felt = nondet %{ len(header_evm.proof.leaf_idx) %};
+    
+    print_felt(1234); // Debug marker
+    print_felt_hex(rlp_bytes_len);
 
     // Decode once to avoid implicit pointer revocation across branches
     let block_number = HeaderDecoder.get_block_number(rlp);
@@ -226,26 +229,30 @@ func verify_headers_with_mmr_peaks_keccak_inner{
 
  
     // Compute keccak(header_rlp) and normalize to big-endian Uint256 layout to match peaks encoding
-     let (header_hash_raw: Uint256) = keccak(inputs=rlp, n_bytes=rlp_bytes_len);
-    // print_string(470559307697);
-   //  print_felt_hex(header_hash_raw.low);
-    //let (header_hash: Uint256) = uint256_reverse_endian(header_hash_raw);
-    // print_string(470559307697);
-   //  print_felt_hex(header_hash_raw.high);
+     let (header_hash_raw: Uint256) = keccak(inputs=rlp_bytes, n_bytes=rlp_bytes_len);
+    print_felt(5678); // Debug marker for header hash low
+    print_felt_hex(header_hash_raw.low);
+    let (header_hash: Uint256) = uint256_reverse_endian(header_hash_raw);
+    print_felt(9012); // Debug marker for header hash high
+    print_felt_hex(header_hash_raw.high);
 
    // 
   
 
 
-    header_hash.high =0x6fe48f6fcfd9737a9a58b602fa74beb8 ;
-    header_hash.low = 0x1b079d9c53150588dd769ea31f0341eb   ;
+  //  header_hash.high =0x6fe48f6fcfd9737a9a58b602fa74beb8 ;
+ //   header_hash.low = 0x1b079d9c53150588dd769ea31f0341eb   ;
 
              print_felt_hex(header_hash.high);
          print_felt_hex(header_hash.low);
 
 
     // Load MMR peaks (Uint256 serialized as [low, high] felts) for membership check
-    let (peaks_keccak) = alloc();
+    //let (peaks_keccak) = alloc();
+
+    let (peaks_keccak: Uint256*) = alloc();
+
+
     tempvar peaks_len: felt = nondet %{ len(header_with_mmr_evm.mmr_meta.peaks) %};
     %{ segments.write_arg(ids.peaks_keccak, header_with_mmr_evm.mmr_meta.peaks) %}
 
@@ -253,10 +260,13 @@ func verify_headers_with_mmr_peaks_keccak_inner{
         local computed_peak: Uint256;
     
         // Load MMR path siblings as Uint256 list serialized as [low, high] felts
-        let (mmr_path_keccak) = alloc();
+       // let (mmr_path_keccak) = alloc();
+
+        let (mmr_path: Uint256*) = alloc();
+
         tempvar mmr_path_len: felt = nondet %{ len(header_evm.proof.mmr_path) %};
-        %{ segments.write_arg(ids.mmr_path_keccak, header_evm.proof.mmr_path) %}
-    
+        %{ segments.write_arg(ids.mmr_path, header_evm.proof.mmr_path) %}
+      
         // Choose effective inclusion proof length: 0 for right-most peak, otherwise provided length
         local eff_len: felt;
         if (leaf_idx == mmr_meta_k.size) {
@@ -264,13 +274,13 @@ func verify_headers_with_mmr_peaks_keccak_inner{
         } else {
             assert eff_len = mmr_path_len;
         } 
-     
+      
         // Always call the keccak MMR path hasher; with eff_len=0 it returns the element unchanged
         let (peak_u256: Uint256) = hash_subtree_path_keccak(  
             element=header_hash,
             height=0,
             position=leaf_idx,
-            inclusion_proof=mmr_path_keccak,
+            inclusion_proof=mmr_path,
             inclusion_proof_len=eff_len,
         );
         assert computed_peak.low = peak_u256.low;
