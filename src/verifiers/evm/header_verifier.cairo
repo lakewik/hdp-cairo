@@ -15,6 +15,7 @@ from src.utils.debug import print_felt_hex, print_string, print_felt
 from src.memorizers.evm.memorizer import EvmMemorizer, EvmHashParams
 from src.decoders.evm.header_decoder import HeaderDecoder
 from src.verifiers.mmr_verifier import validate_mmr_meta_evm, validate_mmr_meta_evm_keccak
+from src.utils.rlp import get_rlp_len
 
 func verify_mmr_batches{
     range_check_ptr,
@@ -213,10 +214,20 @@ func verify_headers_with_mmr_peaks_keccak_inner{
         header_evm = header_with_mmr_evm.headers[ids.idx - 1]
         segments.write_arg(ids.rlp_bytes, header_evm.rlp)
     %}
-    tempvar rlp_bytes_len: felt = nondet %{ len(header_evm.rlp) %};
+    let rlp_bytes_len = get_rlp_len(rlp, 0);
     tempvar leaf_idx: felt = nondet %{ len(header_evm.proof.leaf_idx) %};
-    
-    print_felt(1234); // Debug marker
+
+    // Debug: print first 8 bytes of the RLP to confirm input stream matches Rust (no conditional ops)
+    print_string(0x726c705f62797465735f707265666978); // "rlp_bytes_prefix"
+    print_felt_hex([rlp_bytes]);
+    print_felt_hex([rlp_bytes + 1]);
+    print_felt_hex([rlp_bytes + 2]);
+    print_felt_hex([rlp_bytes + 3]);
+    print_felt_hex([rlp_bytes + 4]);
+    print_felt_hex([rlp_bytes + 5]);
+    print_felt_hex([rlp_bytes + 6]);
+    print_felt_hex([rlp_bytes + 7]);
+    print_string(0x726c705f6c656e); // "rlp_len"
     print_felt_hex(rlp_bytes_len);
 
     // Decode once to avoid implicit pointer revocation across branches
@@ -226,26 +237,28 @@ func verify_headers_with_mmr_peaks_keccak_inner{
     print_felt_hex(leaf_idx);
 
     local header_hash: Uint256;
-
  
-    // Compute keccak(header_rlp) and normalize to big-endian Uint256 layout to match peaks encoding
-     let (header_hash_raw: Uint256) = keccak(inputs=rlp_bytes, n_bytes=rlp_bytes_len);
-    print_felt(5678); // Debug marker for header hash low
-    print_felt_hex(header_hash_raw.low);
-    let (header_hash: Uint256) = uint256_reverse_endian(header_hash_raw);
-    print_felt(9012); // Debug marker for header hash high
-    print_felt_hex(header_hash_raw.high);
-
-   // 
+   
+            // Compute keccak(header_rlp) over raw bytes, then normalize to big-endian Uint256 to match peaks encoding
+            let (header_hash_raw: Uint256) = keccak(inputs=rlp_bytes, n_bytes=rlp_bytes_len);
+            let (header_hash: Uint256) = uint256_reverse_endian(header_hash_raw);
+ 
+    
+ 
+    //  header_hash.high =0x6fe48f6fcfd9737a9a58b602fa74beb8 ;
+    //   header_hash.low = 0x1b079d9c53150588dd769ea31f0341eb   ;
+    
+            // Tag and print header hash to compare with Rust keccak(header_rlp)
+            print_string(0x6865616465725f68617368);  // "header_hash"
+            print_felt_hex(header_hash.high);
+            print_felt_hex(header_hash.low);
   
-
-
-  //  header_hash.high =0x6fe48f6fcfd9737a9a58b602fa74beb8 ;
- //   header_hash.low = 0x1b079d9c53150588dd769ea31f0341eb   ;
-
-             print_felt_hex(header_hash.high);
-         print_felt_hex(header_hash.low);
-
+            // Also compute via keccak_bigend over 8-byte LE words to compare paths
+            let (header_hash_alt: Uint256) = keccak_bigend(rlp, rlp_bytes_len);
+            print_string(0x6865616465725f686173685f616c74);  // "header_hash_alt"
+            print_felt_hex(header_hash_alt.high);
+            print_felt_hex(header_hash_alt.low);
+    
 
     // Load MMR peaks (Uint256 serialized as [low, high] felts) for membership check
     //let (peaks_keccak) = alloc();
@@ -276,8 +289,8 @@ func verify_headers_with_mmr_peaks_keccak_inner{
         } 
       
         // Always call the keccak MMR path hasher; with eff_len=0 it returns the element unchanged
-        let (peak_u256: Uint256) = hash_subtree_path_keccak(  
-            element=header_hash,
+        let (peak_u256: Uint256) = hash_subtree_path_keccak(
+            element=header_hash_alt,
             height=0,
             position=leaf_idx,
             inclusion_proof=mmr_path,

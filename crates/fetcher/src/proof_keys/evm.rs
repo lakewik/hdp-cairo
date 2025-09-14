@@ -84,48 +84,48 @@ impl ProofKeys {
         })
     }
 
-    pub async fn fetch_header_proof_poseidon(
-        deployed_on_chain_id: u128,
-        accumulates_chain_id: u128,
-        block_number: u64,
-    ) -> Result<HeaderMmrMeta<Header>, FetcherError> {
-        let (mmr_proof, meta) = super::ProofKeys::fetch_mmr_proof(
-            deployed_on_chain_id,
-            accumulates_chain_id,
-            block_number,
-            HashingFunction::Poseidon,
-        ).await?;
+    // pub async fn fetch_header_proof_poseidon(
+    //     deployed_on_chain_id: u128,
+    //     accumulates_chain_id: u128,
+    //     block_number: u64,
+    // ) -> Result<HeaderMmrMeta<Header>, FetcherError> {
+    //     let (mmr_proof, meta) = super::ProofKeys::fetch_mmr_proof(
+    //         deployed_on_chain_id,
+    //         accumulates_chain_id,
+    //         block_number,
+    //         HashingFunction::Poseidon,
+    //     ).await?;
 
-        let proof = HeaderProof {
-            leaf_idx: mmr_proof.element_index,
-            mmr_path: mmr_proof
-                .siblings_hashes
-                .iter()
-                .map(|hash| MmrPathElement::Felt252(Felt252::from_hex(hash.as_str()).unwrap()))
-                .collect(),
-            element_hash: Some(mmr_proof.element_hash),
-        };
+    //     let proof = HeaderProof {
+    //         leaf_idx: mmr_proof.element_index,
+    //         mmr_path: mmr_proof
+    //             .siblings_hashes
+    //             .iter()
+    //             .map(|hash| MmrPathElement::Felt252(Felt252::from_hex(hash.as_str()).unwrap()))
+    //             .collect(),
+    //         element_hash: Some(mmr_proof.element_hash),
+    //     };
 
-        let rlp = match &mmr_proof.block_header {
-            BlockHeader::RlpString(rlp) => {
-                let bytes: Bytes = rlp.parse()?;
-                bytes
-            }
-            BlockHeader::RlpLittleEndian8ByteChunks(rlp) => {
-                let rlp_chunks: Vec<Bytes> = rlp
-                    .clone()
-                    .iter()
-                    .map(|x| Self::normalize_hex(x).parse())
-                    .collect::<Result<Vec<Bytes>, FromHexError>>()?;
-                rlp_chunks.iter().flat_map(|x| x.iter().rev().cloned()).collect::<Vec<u8>>().into()
-            }
-            _ => return Err(FetcherError::InternalError("wrong rlp format".into())),
-        };
-        Ok(HeaderMmrMeta {
-            mmr_meta: meta,
-            headers: vec![Header { rlp, proof }],
-        })
-    }
+    //     let rlp = match &mmr_proof.block_header {
+    //         BlockHeader::RlpString(rlp) => {
+    //             let bytes: Bytes = rlp.parse()?;
+    //             bytes
+    //         }
+    //         BlockHeader::RlpLittleEndian8ByteChunks(rlp) => {
+    //             let rlp_chunks: Vec<Bytes> = rlp
+    //                 .clone()
+    //                 .iter()
+    //                 .map(|x| Self::normalize_hex(x).parse())
+    //                 .collect::<Result<Vec<Bytes>, FromHexError>>()?;
+    //             rlp_chunks.iter().flat_map(|x| x.iter().rev().cloned()).collect::<Vec<u8>>().into()
+    //         }
+    //         _ => return Err(FetcherError::InternalError("wrong rlp format".into())),
+    //     };
+    //     Ok(HeaderMmrMeta {
+    //         mmr_meta: meta,
+    //         headers: vec![Header { rlp, proof }],
+    //     })
+    // }
 
 
     pub async fn fetch_account_proof(key: &keys::evm::account::Key) -> Result<Account, FetcherError> {

@@ -4,10 +4,12 @@ use cairo_vm::Felt252;
 use indexer::models::{BlockHeader, HashingFunction};
 use reqwest::Url;
 use starknet_types_core::felt::FromStrError;
+// New: parse hex into Bytes like EVM path
+use alloy::{hex::FromHexError, primitives::Bytes};
 use types::{
     keys::{self, starknet::get_corresponding_rpc_url},
     proofs::{
-        header::{HeaderMmrMeta, HeaderProof, MmrPathElement},
+        header::{HeaderMmrMeta, HeaderProof},
         starknet::{
             header::Header,
             storage::{GetProofOutput, Storage},
@@ -24,6 +26,12 @@ pub struct ProofKeys {
     pub storage_keys: HashSet<keys::starknet::storage::Key>,
 }
 
+// Normalize hex to even-length before parsing to Bytes (mirrors EVM helper)
+fn normalize_hex(input: &str) -> String {
+    let hex_str = input.trim_start_matches("0x");
+    format!("{:0>width$}", hex_str, width = hex_str.len().div_ceil(2) * 2)
+}
+
 impl ProofKeys {
     pub async fn fetch_header_proof(
         deployed_on_chain_id: u128,
@@ -38,13 +46,16 @@ impl ProofKeys {
             hashing,
         ).await?;
 
+        // Convert mmr_path hex strings to Bytes (shared HeaderProof uses Vec<Bytes>)
+        let mmr_path = mmr_proof
+            .siblings_hashes
+            .iter()
+            .map(|hash| normalize_hex(hash).parse())
+            .collect::<Result<Vec<Bytes>, FromHexError>>()?;
+
         let proof = HeaderProof {
             leaf_idx: mmr_proof.element_index,
-            mmr_path: mmr_proof
-                .siblings_hashes
-                .iter()
-                .map(|hash| MmrPathElement::Felt252(Felt252::from_hex(hash.as_str()).unwrap()))
-                .collect(),
+            mmr_path,
             element_hash: Some(mmr_proof.element_hash),
         };
 
