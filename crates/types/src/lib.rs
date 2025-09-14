@@ -196,7 +196,8 @@ pub struct MmrMetaOutput {
     pub id: Felt252,
     pub size: Felt252,
     pub chain_id: Felt252,
-    pub root: Felt252,
+    pub root_low: Felt252,
+    pub root_high: Felt252,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]

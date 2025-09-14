@@ -7,20 +7,26 @@ use alloy::hex;
 use super::mmr::MmrMeta;
 
 // Custom deserialization function for mmr_path to handle hex strings
+// Accepts odd-length hex by padding a leading '0' (indexers may emit such values).
 fn deserialize_mmr_path<'de, D>(deserializer: D) -> Result<Vec<Bytes>, D::Error>
 where
     D: serde::Deserializer<'de>,
 {
     let hex_strings: Vec<String> = Vec::deserialize(deserializer)?;
     let mut bytes_vec = Vec::new();
-    
+
     for hex_str in hex_strings {
         let clean_hex = hex_str.trim_start_matches("0x");
-        let bytes = alloy::hex::decode(clean_hex)
+        let normalized = if clean_hex.len() % 2 == 1 {
+            format!("0{}", clean_hex)
+        } else {
+            clean_hex.to_string()
+        };
+        let bytes = alloy::hex::decode(&normalized)
             .map_err(|e| serde::de::Error::custom(format!("Invalid hex string: {}", e)))?;
         bytes_vec.push(bytes.into());
     }
-    
+
     Ok(bytes_vec)
 }
 
