@@ -19,8 +19,8 @@ from starkware.cairo.common.builtin_poseidon.poseidon import poseidon_hash_many,
 
 from src.verifiers.verify import run_state_verification
 from src.utils.merkle import compute_merkle_root
-from src.types import MMRMeta
-from src.utils.utils import mmr_metas_write_output_ptr, felt_array_to_uint256s
+from src.types import MMRMeta, MMRMetaKeccak
+from src.utils.utils import mmr_metas_write_output_ptr_mixed, felt_array_to_uint256s
 from src.memorizers.evm.memorizer import EvmMemorizer
 from src.memorizers.starknet.memorizer import StarknetMemorizer
 from src.memorizers.bare import BareMemorizer, SingleBareMemorizer
@@ -108,8 +108,9 @@ func run{
 
     // MMR Params
     let (mmr_metas: MMRMeta*) = alloc();
+    let (mmr_metas_keccak: MMRMetaKeccak*) = alloc();
 
-    let (mmr_metas_len) = run_state_verification{
+    let (mmr_metas_len_poseidon, mmr_metas_len_keccak) = run_state_verification{
         range_check_ptr=range_check_ptr,
         pedersen_ptr=pedersen_ptr,
         poseidon_ptr=poseidon_ptr,
@@ -119,6 +120,7 @@ func run{
         evm_memorizer=evm_memorizer,
         starknet_memorizer=starknet_memorizer,
         mmr_metas=mmr_metas,
+        mmr_metas_keccak=mmr_metas_keccak,
     }();
 
     let evm_key_hasher_ptr = EvmStateAccess.init();
@@ -178,8 +180,10 @@ func run{
     assert [output_ptr + 1] = output_root.high;
     let output_ptr = output_ptr + 2;
 
-    mmr_metas_write_output_ptr{output_ptr=output_ptr}(
-        mmr_metas=mmr_metas, mmr_metas_len=mmr_metas_len
+    // Write both sections with counts header.
+    mmr_metas_write_output_ptr_mixed{output_ptr=output_ptr}(
+        mmr_metas_poseidon=mmr_metas, mmr_metas_len_poseidon=mmr_metas_len_poseidon,
+        mmr_metas_keccak=mmr_metas_keccak, mmr_metas_len_keccak=mmr_metas_len_keccak
     );
 
     return ();

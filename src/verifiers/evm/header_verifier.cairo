@@ -25,12 +25,13 @@ func verify_mmr_batches{
     pow2_array: felt*,
     evm_memorizer: DictAccess*,
     mmr_metas: MMRMeta*,
+    mmr_metas_keccak: MMRMetaKeccak*,
     chain_info: ChainInfo,
-}(idx: felt, mmr_meta_idx: felt, hashing_fn: felt) -> (mmr_meta_idx: felt) {
+}(idx: felt, mmr_meta_idx_poseidon: felt, mmr_meta_idx_keccak: felt, hashing_fn: felt) -> (mmr_meta_idx_poseidon: felt, mmr_meta_idx_keccak: felt) {
     alloc_locals;
 
     if (0 == idx) {
-        return (mmr_meta_idx=mmr_meta_idx);
+        return (mmr_meta_idx_poseidon=mmr_meta_idx_poseidon, mmr_meta_idx_keccak=mmr_meta_idx_keccak);
     }
 
     %{ vm_enter_scope({'header_with_mmr_evm': batch_evm.headers_with_mmr[ids.idx - 1], '__dict_manager': __dict_manager}) %}
@@ -39,7 +40,7 @@ func verify_mmr_batches{
     // Dispatch on hashing function
     if (hashing_fn == 0) {
         let (mmr_meta, peaks_dict, peaks_dict_start) = validate_mmr_meta_evm();
-        assert mmr_metas[mmr_meta_idx] = mmr_meta;
+        assert mmr_metas[mmr_meta_idx_poseidon] = mmr_meta;
 
         tempvar n_header_proofs: felt = nondet %{ len(header_with_mmr_evm.headers) %};
         with mmr_meta, peaks_dict {
@@ -51,20 +52,18 @@ func verify_mmr_batches{
 
         %{ vm_exit_scope() %}
 
-        return verify_mmr_batches(idx=idx - 1, mmr_meta_idx=mmr_meta_idx + 1, hashing_fn=hashing_fn);
+        return verify_mmr_batches(
+            idx=idx - 1,
+            mmr_meta_idx_poseidon=mmr_meta_idx_poseidon + 1,
+            mmr_meta_idx_keccak=mmr_meta_idx_keccak,
+            hashing_fn=hashing_fn
+        );
     } else {
         // Keccak meta verification; run full inclusion verification with Uint256 MMR path and Keccak header hash
         let (mmr_meta_k, peaks_dict_k, peaks_dict_start_k) = validate_mmr_meta_evm_keccak();
 
-        // Convert Keccak Uint256 root to a felt for unified MMRMeta array (Poseidon(low, high))
-        let (k_root_felt) = poseidon_hash(mmr_meta_k.root_low, mmr_meta_k.root_high);
-        local mmr_meta_conv: MMRMeta = MMRMeta(
-            id=mmr_meta_k.id,
-            root=k_root_felt,
-            size=mmr_meta_k.size,
-            chain_id=mmr_meta_k.chain_id,
-        );
-        assert mmr_metas[mmr_meta_idx] = mmr_meta_conv;
+        // Record Keccak MMR meta directly into the Keccak section (no conversion to felt).
+        assert mmr_metas_keccak[mmr_meta_idx_keccak] = mmr_meta_k;
 
         tempvar n_header_proofs: felt = nondet %{ len(header_with_mmr_evm.headers) %};
         with mmr_meta_k {
@@ -76,8 +75,13 @@ func verify_mmr_batches{
 
         %{ vm_exit_scope() %}
 
-        // Advance mmr_meta_idx for Keccak batches as well (converted root)
-        return verify_mmr_batches(idx=idx - 1, mmr_meta_idx=mmr_meta_idx + 1, hashing_fn=hashing_fn);
+        // Advance Keccak meta index; Poseidon untouched for this branch.
+        return verify_mmr_batches(
+            idx=idx - 1,
+            mmr_meta_idx_poseidon=mmr_meta_idx_poseidon,
+            mmr_meta_idx_keccak=mmr_meta_idx_keccak + 1,
+            hashing_fn=hashing_fn
+        );
     }
 }
 
