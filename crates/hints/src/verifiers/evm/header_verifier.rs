@@ -106,6 +106,30 @@ pub fn hint_rlp_len(
 
     insert_value_into_ap(vm, Felt252::from(header.rlp.chunks(8).count()))
 }
+
+// Write raw RLP bytes (each byte as a felt) for Keccak hashing path.
+pub const HINT_RLP_BYTES: &str =
+    "header_evm = header_with_mmr_evm.headers[ids.idx - 1]\nsegments.write_arg(ids.rlp_bytes, header_evm.rlp)";
+
+pub fn hint_rlp_bytes(
+    vm: &mut VirtualMachine,
+    exec_scopes: &mut ExecutionScopes,
+    hint_data: &HintProcessorData,
+    _constants: &HashMap<String, Felt252>,
+) -> Result<(), HintError> {
+    let header = exec_scopes.get::<evm::header::Header>(vars::scopes::HEADER_EVM)?;
+    let rlp_bytes_ptr = get_ptr_from_var_name(vars::ids::RLP_BYTES, vm, &hint_data.ids_data, &hint_data.ap_tracking)?;
+
+    let data: Vec<MaybeRelocatable> = header
+        .rlp
+        .iter()
+        .map(|b| MaybeRelocatable::from(Felt252::from(*b)))
+        .collect();
+
+    vm.load_data(rlp_bytes_ptr, &data)?;
+    Ok(())
+}
+
 pub const HINT_LEAF_IDX: &str = "memory[ap] = to_felt_or_relocatable(len(header_evm.proof.leaf_idx))";
 
 pub fn hint_leaf_idx(
@@ -132,7 +156,7 @@ pub fn hint_mmr_path_len(
     insert_value_into_ap(vm, Felt252::from(header.proof.mmr_path.len()))
 }
 
-pub const HINT_MMR_PATH: &str = "segments.write_arg(ids.mmr_path, [int(x, 16) for x in header_evm.proof.mmr_path])";
+pub const HINT_MMR_PATH: &str = "segments.write_arg(ids.mmr_path, header_evm.proof.mmr_path)";
 
 pub fn hint_mmr_path(
     vm: &mut VirtualMachine,
@@ -142,9 +166,77 @@ pub fn hint_mmr_path(
 ) -> Result<(), HintError> {
     let header = exec_scopes.get::<evm::header::Header>(vars::scopes::HEADER_EVM)?;
     let mmr_path_ptr = get_ptr_from_var_name(vars::ids::MMR_PATH, vm, &hint_data.ids_data, &hint_data.ap_tracking)?;
-    let mmr_path: Vec<MaybeRelocatable> = header.proof.mmr_path.into_iter().map(MaybeRelocatable::from).collect();
+    
+    // Convert each Bytes element into a 32-byte big-endian value, then split into (low, high) 128-bit felts.
+    let mut data: Vec<MaybeRelocatable> = Vec::with_capacity(header.proof.mmr_path.len() * 2);
+    for bytes_data in header.proof.mmr_path.iter() {
+        println!("Processing MMR path element: Uint256(0x{})", hex::encode(bytes_data));
 
-    vm.load_data(mmr_path_ptr, &mmr_path)?;
+        let mut wide = [0u8; 32];
+        let copy_len = core::cmp::min(bytes_data.len(), 32);
+        wide[32 - copy_len..].copy_from_slice(&bytes_data[bytes_data.len() - copy_len..]);
+
+        let high = Felt252::from_bytes_be_slice(&wide[..16]);
+        let low = Felt252::from_bytes_be_slice(&wide[16..]);
+
+        println!("  High (128 bits): 0x{:x}", high);
+        println!("  Low (128 bits):  0x{:x}", low);
+
+        // Uint256 layout in Cairo memory: low then high
+        data.push(MaybeRelocatable::from(low));
+        data.push(MaybeRelocatable::from(high));
+    }
+
+    vm.load_data(mmr_path_ptr, &data)?;
 
     Ok(())
 }
+
+// Poseidon path variant: write mmr_path as a flat array of felts (one felt per Bytes element).
+// Matches Cairo code string used in Poseidon path:
+//   segments.write_arg(ids.mmr_path, [int(x, 16) for x in header_evm.proof.mmr_path])
+pub const HINT_MMR_PATH_FELTS: &str =
+    "segments.write_arg(ids.mmr_path, [int(x, 16) for x in header_evm.proof.mmr_path])";
+
+pub fn hint_mmr_path_felts(
+    vm: &mut VirtualMachine,
+    exec_scopes: &mut ExecutionScopes,
+    hint_data: &HintProcessorData,
+    _constants: &HashMap<String, Felt252>,
+) -> Result<(), HintError> {
+    let header = exec_scopes.get::<evm::header::Header>(vars::scopes::HEADER_EVM)?;
+    let mmr_path_ptr = get_ptr_from_var_name(vars::ids::MMR_PATH, vm, &hint_data.ids_data, &hint_data.ap_tracking)?;
+
+    // Each element is a felt (<= 252 bits). Convert Bytes to Felt252 big-endian.
+    let mut data: Vec<MaybeRelocatable> = Vec::with_capacity(header.proof.mmr_path.len());
+    for bytes_data in header.proof.mmr_path.iter() {
+        // Left-pad to 32 bytes, then interpret as big-endian Felt252 (modulus reduction handled by library).
+        let mut wide = [0u8; 32];
+        let copy_len = core::cmp::min(bytes_data.len(), 32);
+        wide[32 - copy_len..].copy_from_slice(&bytes_data[bytes_data.len() - copy_len..]);
+
+        let felt = Felt252::from_bytes_be_slice(&wide);
+        data.push(MaybeRelocatable::from(felt));
+    }
+
+    vm.load_data(mmr_path_ptr, &data)?;
+    Ok(())
+}
+
+// Hint to expose mmr_hashing_function (0=Poseidon, 1=Keccak) from batch_evm to Cairo.
+pub const HINT_MMR_HASHING_FUNCTION: &str = "memory[ap] = to_felt_or_relocatable(batch_evm.mmr_hashing_function)";
+
+pub fn hint_mmr_hashing_function(
+    vm: &mut VirtualMachine,
+    exec_scopes: &mut ExecutionScopes,
+    _hint_data: &HintProcessorData,
+    _constants: &HashMap<String, Felt252>,
+) -> Result<(), HintError> {
+    let proofs = exec_scopes.get::<evm::Proofs>(vars::scopes::BATCH_EVM)?;
+    let v: u8 = match proofs.mmr_hashing_function {
+        types::HashingFunction::Poseidon => 0,
+        types::HashingFunction::Keccak => 1,
+    };
+    insert_value_into_ap(vm, Felt252::from(v))
+}
+

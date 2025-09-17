@@ -33,8 +33,10 @@ pub mod ids {
     pub const STORAGE_ADDRESSES: &str = "storage_addresses";
     pub const FIELDS: &str = "fields";
     pub const PEAKS: &str = "peaks";
+    pub const PEAKS_KECCAK: &str = "peaks_keccak";
     pub const CHAIN_PROOFS_LEN: &str = "chain_proofs_len";
     pub const RLP_LEN: &str = "rlp_len";
+    pub const RLP_BYTES: &str = "rlp_bytes";
     pub const ADDRESS: &str = "address";
     pub const ALL_ENCODINGS: &str = "all_encodings";
     pub const BATCH_LEN: &str = "batch_len";
@@ -55,6 +57,7 @@ pub mod ids {
     pub const KEY_LEADING_ZEROS: &str = "key_leading_zeros";
     pub const LEFT: &str = "left";
     pub const MMR_PATH: &str = "mmr_path";
+    pub const MMR_PATH_KECCAK: &str = "mmr_path_keccak";
     pub const MPT_PROOF: &str = "mpt_proof";
     pub const PROOF_BYTES_LEN: &str = "proof_bytes_len";
     pub const N_BUILTINS: &str = "n_builtins";

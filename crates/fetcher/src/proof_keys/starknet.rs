@@ -1,9 +1,11 @@
 use std::collections::HashSet;
 
 use cairo_vm::Felt252;
-use indexer::models::BlockHeader;
+use indexer::models::{BlockHeader, HashingFunction};
 use reqwest::Url;
 use starknet_types_core::felt::FromStrError;
+// New: parse hex into Bytes like EVM path
+use alloy::{hex::FromHexError, primitives::Bytes};
 use types::{
     keys::{self, starknet::get_corresponding_rpc_url},
     proofs::{
@@ -24,21 +26,37 @@ pub struct ProofKeys {
     pub storage_keys: HashSet<keys::starknet::storage::Key>,
 }
 
+// Normalize hex to even-length before parsing to Bytes (mirrors EVM helper)
+fn normalize_hex(input: &str) -> String {
+    let hex_str = input.trim_start_matches("0x");
+    format!("{:0>width$}", hex_str, width = hex_str.len().div_ceil(2) * 2)
+}
+
 impl ProofKeys {
     pub async fn fetch_header_proof(
         deployed_on_chain_id: u128,
         accumulates_chain_id: u128,
         block_number: u64,
+        hashing: HashingFunction,
     ) -> Result<HeaderMmrMeta<Header>, FetcherError> {
-        let (mmr_proof, meta) = super::ProofKeys::fetch_mmr_proof(deployed_on_chain_id, accumulates_chain_id, block_number).await?;
+        let (mmr_proof, meta) = super::ProofKeys::fetch_mmr_proof(
+            deployed_on_chain_id,
+            accumulates_chain_id,
+            block_number,
+            hashing,
+        ).await?;
+
+        // Convert mmr_path hex strings to Bytes (shared HeaderProof uses Vec<Bytes>)
+        let mmr_path = mmr_proof
+            .siblings_hashes
+            .iter()
+            .map(|hash| normalize_hex(hash).parse())
+            .collect::<Result<Vec<Bytes>, FromHexError>>()?;
 
         let proof = HeaderProof {
             leaf_idx: mmr_proof.element_index,
-            mmr_path: mmr_proof
-                .siblings_hashes
-                .iter()
-                .map(|hash| Felt252::from_hex(hash.as_str()))
-                .collect::<Result<Vec<Felt252>, FromStrError>>()?,
+            mmr_path,
+            element_hash: Some(mmr_proof.element_hash),
         };
 
         match &mmr_proof.block_header {
@@ -59,18 +77,24 @@ impl ProofKeys {
 
     pub async fn fetch_storage_proof(key: &keys::starknet::storage::Key) -> Result<Storage, FetcherError> {
         let rpc_url = get_corresponding_rpc_url(key).map_err(|e| FetcherError::InternalError(e.to_string()))?;
+        let request_body = serde_json::json!({
+            "jsonrpc": "2.0",
+            "method": "pathfinder_getProof",
+            "params": [
+                {"block_number": key.block_number},
+                key.address,
+                [key.storage_slot]
+            ],
+            "id": 1
+        });
+
+        // Debug: Print the request details
+        println!("[STARKNET RPC REQUEST] POST {}", rpc_url);
+        println!("[STARKNET RPC REQUEST] Body: {}", serde_json::to_string_pretty(&request_body).unwrap());
+
         let response = reqwest::Client::new()
             .post(Url::parse(&rpc_url).unwrap())
-            .json(&serde_json::json!({
-                "jsonrpc": "2.0",
-                "method": "pathfinder_getProof",
-                "params": [
-                    {"block_number": key.block_number},
-                    key.address,
-                    [key.storage_slot]
-                ],
-                "id": 1
-            }))
+            .json(&request_body)
             .send()
             .await?;
 

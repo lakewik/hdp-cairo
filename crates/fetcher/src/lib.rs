@@ -33,7 +33,8 @@ use types::{
         mmr::MmrMeta,
         starknet::{header::Header as StarknetHeader, storage::Storage as StarknetStorage, Proofs as StarknetProofs},
     },
-    ChainProofs, ETHEREUM_MAINNET_CHAIN_ID, ETHEREUM_TESTNET_CHAIN_ID, STARKNET_MAINNET_CHAIN_ID, STARKNET_TESTNET_CHAIN_ID,
+    ChainProofs, HashingFunction, ETHEREUM_MAINNET_CHAIN_ID, ETHEREUM_TESTNET_CHAIN_ID,
+    STARKNET_MAINNET_CHAIN_ID, STARKNET_TESTNET_CHAIN_ID, OPTIMISM_MAINNET_CHAIN_ID, OPTIMISM_TESTNET_CHAIN_ID
 };
 
 pub mod proof_keys;
@@ -55,6 +56,17 @@ pub struct Args {
         help = "Path where the output JSON will be written"
     )]
     pub output: PathBuf,
+    #[arg(
+        long = "mmr-hashing-function",
+        default_value = "poseidon",
+        help = "MMR hashing function to request and annotate proofs with: poseidon or keccak"
+    )]
+    pub mmr_hashing_function: String,
+    #[arg(
+        long = "deployed-on-chain",
+        help = "Override deployed_on_chain used for MMR/header proof queries to the Indexer. Defaults: EVM=chain_id, Starknet=11155111"
+    )]
+    pub deployed_on_chain: Option<u128>,
 }
 
 #[derive(Error, Debug)]
@@ -159,6 +171,8 @@ impl ProgressExt for Option<ProgressBar> {
 
 pub struct Fetcher<'a> {
     proof_keys: &'a ProofKeys,
+    mmr_hashing_function: HashingFunction,
+    deployed_on_chain: Option<u128>,
     #[cfg(feature = "progress_bars")]
     progress_bars: ProgressBars,
 }
@@ -166,8 +180,27 @@ impl<'a> Fetcher<'a> {
     pub fn new(proof_keys: &'a ProofKeys) -> Self {
         Self {
             proof_keys,
+            mmr_hashing_function: HashingFunction::Poseidon,
+            deployed_on_chain: None,
             #[cfg(feature = "progress_bars")]
             progress_bars: ProgressBars::new(proof_keys),
+        }
+    }
+
+    pub fn new_with_hashing(proof_keys: &'a ProofKeys, mmr_hashing_function: HashingFunction, deployed_on_chain: Option<u128>) -> Self {
+        Self {
+            proof_keys,
+            mmr_hashing_function,
+            deployed_on_chain,
+            #[cfg(feature = "progress_bars")]
+            progress_bars: ProgressBars::new(proof_keys),
+        }
+    }
+
+    fn indexer_hashing(&self) -> indexer::models::HashingFunction {
+        match self.mmr_hashing_function {
+            HashingFunction::Poseidon => indexer::models::HashingFunction::Poseidon,
+            HashingFunction::Keccak => indexer::models::HashingFunction::Keccak,
         }
     }
 
@@ -179,7 +212,15 @@ impl<'a> Fetcher<'a> {
         let mut header_fut = futures::stream::iter(
             flattened_keys
                 .iter()
-                .map(|key| EvmProofKeys::fetch_header_proof(key.chain_id, key.chain_id, key.block_number)),
+                .map(|key| {
+                    let deployed_on_chain = self.deployed_on_chain.unwrap_or(key.chain_id);
+                    EvmProofKeys::fetch_header_proof(
+                        deployed_on_chain,
+                        key.chain_id,
+                        key.block_number,
+                        self.indexer_hashing()
+                    )
+                }),
         )
         .buffer_unordered(BUFFER_UNORDERED)
         .boxed();
@@ -313,6 +354,7 @@ impl<'a> Fetcher<'a> {
             .safe_finish_with_message("evm transaction keys - finished");
 
         Ok(EvmProofs {
+            mmr_hashing_function: self.mmr_hashing_function.clone(),
             headers_with_mmr: process_headers(headers_with_mmr),
             accounts: accounts.into_iter().collect(),
             storages: storages.into_iter().collect(),
@@ -329,8 +371,15 @@ impl<'a> Fetcher<'a> {
         let mut header_fut = futures::stream::iter(
             flattened_keys
                 .iter()
-                // TODO: handle `deployed_on_chain_id` in a better way
-                .map(|key| StarknetProofKeys::fetch_header_proof(11155111, key.chain_id, key.block_number)),
+                .map(|key| {
+                    let deployed_on_chain = self.deployed_on_chain.unwrap_or(11155111);
+                    StarknetProofKeys::fetch_header_proof(
+                        deployed_on_chain,
+                        key.chain_id,
+                        key.block_number,
+                        self.indexer_hashing()
+                    )
+                }),
         )
         .buffer_unordered(BUFFER_UNORDERED)
         .boxed();
@@ -379,6 +428,7 @@ impl<'a> Fetcher<'a> {
             .safe_finish_with_message("starknet storage keys - finished");
 
         Ok(StarknetProofs {
+            mmr_hashing_function: self.mmr_hashing_function.clone(),
             headers_with_mmr: process_headers(headers_with_mmr),
             storages: storages.into_iter().collect(),
         })
@@ -390,17 +440,28 @@ pub async fn run_fetcher(
 ) -> Result<Vec<ChainProofs>, FetcherError> {
     let proof_keys = parse_syscall_handler(syscall_handler)?;
     let fetcher = Fetcher::new(&proof_keys);
-    let (evm_proofs_mainnet, evm_proofs_sepolia, starknet_proofs_mainnet, starknet_proofs_sepolia) = tokio::try_join!(
+    let (
+        eth_proofs_mainnet, 
+        eth_proofs_sepolia, 
+        starknet_proofs_mainnet, 
+        starknet_proofs_sepolia,
+        optimism_proofs_mainnet, 
+        optimism_proofs_sepolia
+    ) = tokio::try_join!(
         fetcher.collect_evm_proofs(ETHEREUM_MAINNET_CHAIN_ID),
         fetcher.collect_evm_proofs(ETHEREUM_TESTNET_CHAIN_ID),
         fetcher.collect_starknet_proofs(STARKNET_MAINNET_CHAIN_ID),
-        fetcher.collect_starknet_proofs(STARKNET_TESTNET_CHAIN_ID)
+        fetcher.collect_starknet_proofs(STARKNET_TESTNET_CHAIN_ID),
+        fetcher.collect_evm_proofs(OPTIMISM_MAINNET_CHAIN_ID),
+        fetcher.collect_evm_proofs(OPTIMISM_TESTNET_CHAIN_ID),
     )?;
     let chain_proofs = vec![
-        ChainProofs::EthereumMainnet(evm_proofs_mainnet),
-        ChainProofs::EthereumSepolia(evm_proofs_sepolia),
+        ChainProofs::EthereumMainnet(eth_proofs_mainnet),
+        ChainProofs::EthereumSepolia(eth_proofs_sepolia),
         ChainProofs::StarknetMainnet(starknet_proofs_mainnet),
         ChainProofs::StarknetSepolia(starknet_proofs_sepolia),
+        ChainProofs::OptimismMainnet(optimism_proofs_mainnet),
+        ChainProofs::OptimismSepolia(optimism_proofs_sepolia),
     ];
 
     Ok(chain_proofs)

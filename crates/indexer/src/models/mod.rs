@@ -4,14 +4,7 @@ use thiserror::Error;
 pub mod accumulators;
 pub mod blocks;
 
-/// Enum for available hashing functions
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(rename_all = "lowercase")]
-pub enum HashingFunction {
-    Keccak,
-    Poseidon,
-    Pedersen,
-}
+pub use types::HashingFunction;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub enum BlockHeader {

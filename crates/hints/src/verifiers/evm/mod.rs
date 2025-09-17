@@ -20,7 +20,7 @@ use types::{proofs::evm, ChainProofs};
 
 use crate::vars;
 
-pub const HINT_HEADERS_WITH_MMR_LEN: &str = "memory[ap] = to_felt_or_relocatable(len(batch_evm.headers_with_mmr_evm))";
+pub const HINT_HEADERS_WITH_MMR_LEN: &str = "memory[ap] = to_felt_or_relocatable(len(batch_evm.headers_with_mmr))";
 
 pub fn hint_headers_with_mmr_len(
     vm: &mut VirtualMachine,
@@ -51,6 +51,8 @@ pub fn hint_vm_enter_scope(
         ChainProofs::EthereumSepolia(proofs) => Box::new(proofs),
         ChainProofs::StarknetMainnet(proofs) => Box::new(proofs),
         ChainProofs::StarknetSepolia(proofs) => Box::new(proofs),
+        ChainProofs::OptimismMainnet(proofs) => Box::new(proofs),
+        ChainProofs::OptimismSepolia(proofs) => Box::new(proofs),
     };
     let dict_manager: Box<dyn Any> = Box::new(exec_scopes.get_dict_manager()?);
 

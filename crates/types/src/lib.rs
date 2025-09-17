@@ -22,13 +22,33 @@ use serde_json::Value;
 pub const RPC_URL_ETHEREUM_MAINNET: &str = "RPC_URL_ETHEREUM_MAINNET";
 pub const RPC_URL_ETHEREUM_TESTNET: &str = "RPC_URL_ETHEREUM_TESTNET";
 
+pub const RPC_URL_OPTIMISM_MAINNET: &str = "RPC_URL_OPTIMISM_MAINNET";
+pub const RPC_URL_OPTIMISM_TESTNET: &str = "RPC_URL_OPTIMISM_TESTNET";
+
 pub const RPC_URL_STARKNET_MAINNET: &str = "RPC_URL_STARKNET_MAINNET";
 pub const RPC_URL_STARKNET_TESTNET: &str = "RPC_URL_STARKNET_TESTNET";
 
 pub const RPC_URL_HERODOTUS_INDEXER: &str = "RPC_URL_HERODOTUS_INDEXER";
 
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "lowercase")]
+pub enum HashingFunction {
+    Poseidon,
+    Keccak,
+}
+
+impl Default for HashingFunction {
+    fn default() -> Self {
+        HashingFunction::Poseidon
+    }
+}
+
 pub const ETHEREUM_MAINNET_CHAIN_ID: u128 = 0x1;
 pub const ETHEREUM_TESTNET_CHAIN_ID: u128 = 0xaa36a7;
+pub const OPTIMISM_MAINNET_CHAIN_ID: u128 = 0xa;
+pub const OPTIMISM_TESTNET_CHAIN_ID: u128 = 0xaa37dc;
+// pub const WORLDCHAIN_MAINNET_CHAIN_ID: u128 = 0x1e0;
+// pub const WORLDCHAIN_TESTNET_CHAIN_ID: u128 = 0x12c1;
 pub const STARKNET_MAINNET_CHAIN_ID: u128 = 0x534e5f4d41494e;
 pub const STARKNET_TESTNET_CHAIN_ID: u128 = 0x534e5f5345504f4c4941;
 
@@ -49,6 +69,10 @@ pub struct HDPInput {
 pub enum ChainProofs {
     EthereumMainnet(evm::Proofs),
     EthereumSepolia(evm::Proofs),
+    OptimismMainnet(evm::Proofs),
+    OptimismSepolia(evm::Proofs),
+    // WorldchainMainnet(evm::Proofs),
+    // WorldchainSepolia(evm::Proofs),
     StarknetMainnet(starknet::Proofs),
     StarknetSepolia(starknet::Proofs),
 }
@@ -58,6 +82,10 @@ impl ChainProofs {
         match self {
             ChainProofs::EthereumMainnet(_) => 0x1,
             ChainProofs::EthereumSepolia(_) => 0xaa36a7,
+            ChainProofs::OptimismMainnet(_) => 0xa,
+            ChainProofs::OptimismSepolia(_) => 0xaa37dc,
+            // ChainProofs::WorldchainMainnet(_) => 0x1e0,
+            // ChainProofs::WorldchainSepolia(_) => 0x12c1,
             ChainProofs::StarknetMainnet(_) => 0x534e5f4d41494e,
             ChainProofs::StarknetSepolia(_) => 0x534e5f5345504f4c4941,
         }
@@ -70,6 +98,8 @@ pub enum ChainIds {
     EthereumSepolia,
     StarknetMainnet,
     StarknetSepolia,
+    OptimismMainnet,
+    OptimismSepolia,
 }
 
 impl fmt::Display for ChainIds {
@@ -79,6 +109,8 @@ impl fmt::Display for ChainIds {
             ChainIds::EthereumSepolia => write!(f, "ethereum-sepolia"),
             ChainIds::StarknetMainnet => write!(f, "starknet-mainnet"),
             ChainIds::StarknetSepolia => write!(f, "starknet-sepolia"),
+            ChainIds::OptimismMainnet => write!(f, "optimism-mainnet"),
+            ChainIds::OptimismSepolia => write!(f, "optimism-sepolia"),
         }
     }
 }
@@ -92,6 +124,8 @@ impl FromStr for ChainIds {
             "ethereum-sepolia" | "ethereum_sepolia" | "ethereumsepolia" => Ok(Self::EthereumSepolia),
             "starknet-mainnet" | "starknet_mainnet" | "starknetmainnet" => Ok(Self::StarknetMainnet),
             "starknet-sepolia" | "starknet_sepolia" | "starknetsepolia" => Ok(Self::StarknetSepolia),
+            "optimism-mainnet" | "optimism_mainnet" | "optimismmainnet" => Ok(Self::OptimismMainnet),
+            "optimism-sepolia" | "optimism_sepolia" | "optimismsepolia" => Ok(Self::OptimismSepolia),
             _ => Err(format!("Invalid chain ID: {}", s)),
         }
     }
@@ -104,6 +138,8 @@ impl ChainIds {
             ETHEREUM_TESTNET_CHAIN_ID => Some(Self::EthereumSepolia),
             STARKNET_MAINNET_CHAIN_ID => Some(Self::StarknetMainnet),
             STARKNET_TESTNET_CHAIN_ID => Some(Self::StarknetSepolia),
+            OPTIMISM_MAINNET_CHAIN_ID => Some(Self::OptimismMainnet),
+            OPTIMISM_TESTNET_CHAIN_ID => Some(Self::OptimismSepolia),
             _ => None,
         }
     }
@@ -156,11 +192,25 @@ impl FromIterator<Felt252> for HDPDryRunOutput {
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
-pub struct MmrMetaOutput {
-    pub id: Felt252,
-    pub size: Felt252,
-    pub chain_id: Felt252,
-    pub root: Felt252,
+#[serde(tag = "hash", rename_all = "lowercase")]
+pub enum MmrMetaOutput {
+    // Current Cairo output writes a single felt root for every MMR meta.
+    // We map those 4 felt words (id, size, chain_id, root) into this Poseidon variant.
+    Poseidon {
+        id: Felt252,
+        size: Felt252,
+        chain_id: Felt252,
+        root: Felt252,
+    },
+    // Reserved for future extension when Cairo exposes Keccak (Uint256) roots directly.
+    // Not constructed from current Cairo output; included to avoid wasting space in Poseidon-only paths.
+    Keccak {
+        id: Felt252,
+        size: Felt252,
+        chain_id: Felt252,
+        root_low: Felt252,
+        root_high: Felt252,
+    },
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
@@ -176,15 +226,38 @@ impl FromIterator<Felt252> for HDPOutput {
     fn from_iter<T: IntoIterator<Item = Felt252>>(iter: T) -> Self {
         let mut i = iter.into_iter();
 
+        // Fixed 4 words
         let task_hash_low = i.next().unwrap();
         let task_hash_high = i.next().unwrap();
         let output_tree_root_low = i.next().unwrap();
         let output_tree_root_high = i.next().unwrap();
 
-        let mut mmr_metas = Vec::<MmrMetaOutput>::new();
+        // New mixed-layout header: [poseidon_len, keccak_len]
+        let poseidon_len_f = i.next().unwrap();
+        let keccak_len_f = i.next().unwrap();
 
-        while let Ok([id, size, chain_id, root]) = i.next_chunk::<4>() {
-            mmr_metas.push(MmrMetaOutput { id, size, chain_id, root });
+        // Convert Felt252 -> usize by reading the last 8 bytes (big-endian)
+        let felt_to_usize = |f: &Felt252| -> usize {
+            let bytes = f.to_bytes_be();
+            let mut buf = [0u8; 8];
+            buf.copy_from_slice(&bytes[24..32]);
+            u64::from_be_bytes(buf) as usize
+        };
+        let poseidon_len = felt_to_usize(&poseidon_len_f);
+        let keccak_len = felt_to_usize(&keccak_len_f);
+
+        // Poseidon section: poseidon_len * 4 felts
+        let mut mmr_metas = Vec::<MmrMetaOutput>::with_capacity(poseidon_len + keccak_len);
+        for _ in 0..poseidon_len {
+            let [id, size, chain_id, root] = i.next_chunk::<4>().expect("missing poseidon mmr_meta words");
+            mmr_metas.push(MmrMetaOutput::Poseidon { id, size, chain_id, root });
+        }
+
+        // Keccak section: keccak_len * 5 felts (id, size, chain_id, root_low, root_high)
+        for _ in 0..keccak_len {
+            let [id, size, chain_id, root_low, root_high] =
+                i.next_chunk::<5>().expect("missing keccak mmr_meta words");
+            mmr_metas.push(MmrMetaOutput::Keccak { id, size, chain_id, root_low, root_high });
         }
 
         Self {
@@ -205,9 +278,27 @@ impl HDPOutput {
             self.output_tree_root_low,
             self.output_tree_root_high,
         ];
+
+        // Counts
+        let poseidon_len = self.mmr_metas.iter().filter(|m| matches!(m, MmrMetaOutput::Poseidon { .. })).count();
+        let keccak_len = self.mmr_metas.iter().filter(|m| matches!(m, MmrMetaOutput::Keccak { .. })).count();
+        felt_vec.push(Felt252::from(poseidon_len));
+        felt_vec.push(Felt252::from(keccak_len));
+
+        // Poseidon section
         self.mmr_metas.iter().for_each(|mmr_meta| {
-            felt_vec.extend([mmr_meta.id, mmr_meta.size, mmr_meta.chain_id, mmr_meta.root]);
+            if let MmrMetaOutput::Poseidon { id, size, chain_id, root } = mmr_meta {
+                felt_vec.extend([*id, *size, *chain_id, *root]);
+            }
         });
+
+        // Keccak section
+        self.mmr_metas.iter().for_each(|mmr_meta| {
+            if let MmrMetaOutput::Keccak { id, size, chain_id, root_low, root_high } = mmr_meta {
+                felt_vec.extend([*id, *size, *chain_id, *root_low, *root_high]);
+            }
+        });
+
         felt_vec
     }
 }

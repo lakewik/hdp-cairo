@@ -1,5 +1,5 @@
 use alloy::{hex::FromHexError, primitives::Bytes};
-use indexer::{models::accumulators, Indexer};
+use indexer::{models::{accumulators, HashingFunction}, Indexer};
 use types::proofs::mmr::MmrMeta;
 
 use crate::FetcherError;
@@ -29,17 +29,21 @@ impl ProofKeys {
         deployed_on_chain_id: u128,
         accumulates_chain_id: u128,
         block_number: u64,
+        hashing: HashingFunction,
     ) -> Result<(accumulators::MMRProof, MmrMeta), FetcherError> {
         let provider = Indexer::default();
 
         // Fetch proof response
         let response = provider
-            .get_headers_proof(accumulators::IndexerQuery::new(
-                deployed_on_chain_id,
-                accumulates_chain_id,
-                block_number,
-                block_number,
-            ))
+            .get_headers_proof(
+                accumulators::IndexerQuery::new(
+                    deployed_on_chain_id,
+                    accumulates_chain_id,
+                    block_number,
+                    block_number,
+                )
+                .with_hashing_function(hashing),
+            )
             .await?;
 
         // Extract MMR metadata

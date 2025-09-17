@@ -9,12 +9,12 @@ use alloy::{
 };
 use cairo_vm::Felt252;
 use eth_trie_proofs::{tx_receipt_trie::TxReceiptsMptHandler, tx_trie::TxsMptHandler};
-use indexer::models::BlockHeader;
+use indexer::models::{BlockHeader, HashingFunction};
 use starknet_types_core::felt::FromStrError;
 use types::{
     keys::{self, evm::get_corresponding_rpc_url},
     proofs::{
-        evm::{account::Account, header::Header, receipt::Receipt, storage::Storage, transaction::Transaction},
+        evm::{account::Account, header::{Header, HeaderKeccak}, receipt::Receipt, storage::Storage, transaction::Transaction},
         header::{HeaderMmrMeta, HeaderProof},
         mpt::MPTProof,
     },
@@ -42,16 +42,24 @@ impl ProofKeys {
         deployed_on_chain_id: u128,
         accumulates_chain_id: u128,
         block_number: u64,
+        hashing: HashingFunction,
     ) -> Result<HeaderMmrMeta<Header>, FetcherError> {
-        let (mmr_proof, meta) = super::ProofKeys::fetch_mmr_proof(deployed_on_chain_id, accumulates_chain_id, block_number).await?;
+        let (mmr_proof, meta) = super::ProofKeys::fetch_mmr_proof(
+            deployed_on_chain_id,
+            accumulates_chain_id,
+            block_number,
+            hashing.clone(),
+        ).await?;
 
+        // Convert hex strings to Bytes for both Poseidon and Keccak to preserve full precision
         let proof = HeaderProof {
             leaf_idx: mmr_proof.element_index,
             mmr_path: mmr_proof
                 .siblings_hashes
                 .iter()
-                .map(|hash| Felt252::from_hex(hash.as_str()))
-                .collect::<Result<Vec<Felt252>, FromStrError>>()?,
+                .map(|hash| Self::normalize_hex(hash).parse())
+                .collect::<Result<Vec<Bytes>, FromHexError>>()?,
+            element_hash: Some(mmr_proof.element_hash),
         };
 
         let rlp = match &mmr_proof.block_header {
@@ -69,14 +77,64 @@ impl ProofKeys {
             }
             _ => return Err(FetcherError::InternalError("wrong rlp format".into())),
         };
+        
         Ok(HeaderMmrMeta {
             mmr_meta: meta,
             headers: vec![Header { rlp, proof }],
         })
     }
 
+    // pub async fn fetch_header_proof_poseidon(
+    //     deployed_on_chain_id: u128,
+    //     accumulates_chain_id: u128,
+    //     block_number: u64,
+    // ) -> Result<HeaderMmrMeta<Header>, FetcherError> {
+    //     let (mmr_proof, meta) = super::ProofKeys::fetch_mmr_proof(
+    //         deployed_on_chain_id,
+    //         accumulates_chain_id,
+    //         block_number,
+    //         HashingFunction::Poseidon,
+    //     ).await?;
+
+    //     let proof = HeaderProof {
+    //         leaf_idx: mmr_proof.element_index,
+    //         mmr_path: mmr_proof
+    //             .siblings_hashes
+    //             .iter()
+    //             .map(|hash| MmrPathElement::Felt252(Felt252::from_hex(hash.as_str()).unwrap()))
+    //             .collect(),
+    //         element_hash: Some(mmr_proof.element_hash),
+    //     };
+
+    //     let rlp = match &mmr_proof.block_header {
+    //         BlockHeader::RlpString(rlp) => {
+    //             let bytes: Bytes = rlp.parse()?;
+    //             bytes
+    //         }
+    //         BlockHeader::RlpLittleEndian8ByteChunks(rlp) => {
+    //             let rlp_chunks: Vec<Bytes> = rlp
+    //                 .clone()
+    //                 .iter()
+    //                 .map(|x| Self::normalize_hex(x).parse())
+    //                 .collect::<Result<Vec<Bytes>, FromHexError>>()?;
+    //             rlp_chunks.iter().flat_map(|x| x.iter().rev().cloned()).collect::<Vec<u8>>().into()
+    //         }
+    //         _ => return Err(FetcherError::InternalError("wrong rlp format".into())),
+    //     };
+    //     Ok(HeaderMmrMeta {
+    //         mmr_meta: meta,
+    //         headers: vec![Header { rlp, proof }],
+    //     })
+    // }
+
+
     pub async fn fetch_account_proof(key: &keys::evm::account::Key) -> Result<Account, FetcherError> {
         let rpc_url = get_corresponding_rpc_url(key).map_err(|e| FetcherError::InternalError(e.to_string()))?;
+        
+        // Debug: Print the request details
+        println!("[EVM RPC REQUEST] POST {} - eth_getProof", rpc_url);
+        println!("[EVM RPC REQUEST] Address: {}, Block: {}", key.address, key.block_number);
+        
         let provider = RootProvider::<Ethereum>::new_http(Url::parse(&rpc_url).unwrap());
         let value = provider
             .get_proof(key.address, vec![])
@@ -91,6 +149,11 @@ impl ProofKeys {
 
     pub async fn fetch_storage_proof(key: &keys::evm::storage::Key) -> Result<(Account, Storage), FetcherError> {
         let rpc_url = get_corresponding_rpc_url(key).map_err(|e| FetcherError::InternalError(e.to_string()))?;
+        
+        // Debug: Print the request details
+        println!("[EVM RPC REQUEST] POST {} - eth_getProof", rpc_url);
+        println!("[EVM RPC REQUEST] Address: {}, Storage Slot: {}, Block: {}", key.address, key.storage_slot, key.block_number);
+        
         let provider = RootProvider::<Ethereum>::new_http(Url::parse(&rpc_url).unwrap());
         let value = provider
             .get_proof(key.address, vec![key.storage_slot])

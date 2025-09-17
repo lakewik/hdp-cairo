@@ -8,3 +8,10 @@ pub struct Header {
     pub rlp: Bytes,
     pub proof: HeaderProof,
 }
+
+// Header struct for Keccak - now uses the same HeaderProof with Bytes
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Eq, Hash, Default)]
+pub struct HeaderKeccak {
+    pub rlp: Bytes,
+    pub proof: HeaderProof,
+}
